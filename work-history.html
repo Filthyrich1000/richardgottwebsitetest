@@ -241,7 +241,6 @@
             text-align: left;
             font-weight: 600;
             font-size: 0.9rem;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -496,7 +495,7 @@
             <section class="work-history-section">
                 <div class="page-header">
                     <h1><span class="green-text">PAST</span> WORK</h1>
-                    <p class="subtitle">Everything, since the beginning of time...(v10)</p>
+                    <p class="subtitle">Everything, since the beginning of time...(v14)</p>
                 </div>
                 
                 <div id="loading">
@@ -655,13 +654,13 @@
                     
                     tbody.appendChild(tr);
                     
-                    // Mobile card
+                    // Mobile card - make first card expanded
                     const card = document.createElement('div');
-                    card.className = 'mobile-card';
+                    card.className = i === 1 ? 'mobile-card expanded' : 'mobile-card';
                     card.innerHTML = `
                         <div class="mobile-card-header" onclick="toggleMobileCard(this.parentElement)">
                             <div class="mobile-card-title">${row[0] || 'Unknown Company'}</div>
-                            <div class="mobile-card-toggle">+</div>
+                            <div class="mobile-card-toggle">${i === 1 ? '×' : '+'}</div>
                         </div>
                         <div class="mobile-card-content">
                             <div class="mobile-card-details">
