@@ -345,31 +345,33 @@
         }
 
         .mobile-card-details {
-            padding: 0 1rem 1rem 1rem;
-            border-top: 1px solid rgba(18, 63, 84, 0.2);
+            padding: 1rem;
         }
 
-        .mobile-detail-row {
-            display: flex;
-            padding: 0.8rem 0;
+        .mobile-card-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .mobile-card-details td {
+            padding: 0.6rem 0;
             border-bottom: 1px solid rgba(18, 63, 84, 0.1);
+            font-size: 0.9rem;
+            vertical-align: top;
         }
 
-        .mobile-detail-row:last-child {
+        .mobile-card-details tr:last-child td {
             border-bottom: none;
         }
 
-        .mobile-detail-label {
+        .mobile-card-details td:first-child {
             font-weight: 600;
-            width: 45%;
-            font-size: 0.9rem;
             color: #123f54;
+            width: 40%;
             padding-right: 1rem;
         }
 
-        .mobile-detail-value {
-            width: 55%;
-            font-size: 0.9rem;
+        .mobile-card-details td:last-child {
             color: #123f54;
         }
 
@@ -493,7 +495,7 @@
             <section class="work-history-section">
                 <div class="page-header">
                     <h1><span class="green-text">PAST</span> WORK</h1>
-                    <p class="subtitle">Everything, since the beginning of time...(v8)</p>
+                    <p class="subtitle">Everything, since the beginning of time...(v9)</p>
                 </div>
                 
                 <div id="loading">
