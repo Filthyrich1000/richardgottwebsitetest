@@ -662,26 +662,28 @@
                         </div>
                         <div class="mobile-card-content">
                             <div class="mobile-card-details">
-                                <div class="mobile-detail-row">
-                                    <div class="mobile-detail-label">Title</div>
-                                    <div class="mobile-detail-value">${row[1] || ''}</div>
-                                </div>
-                                <div class="mobile-detail-row">
-                                    <div class="mobile-detail-label">Broadcaster/Client</div>
-                                    <div class="mobile-detail-value">${row[2] || ''}</div>
-                                </div>
-                                <div class="mobile-detail-row">
-                                    <div class="mobile-detail-label">Director</div>
-                                    <div class="mobile-detail-value">${row[3] || ''}</div>
-                                </div>
-                                <div class="mobile-detail-row">
-                                    <div class="mobile-detail-label">Notes/Project description</div>
-                                    <div class="mobile-detail-value">${row[4] || ''}</div>
-                                </div>
-                                <div class="mobile-detail-row">
-                                    <div class="mobile-detail-label">Date</div>
-                                    <div class="mobile-detail-value">${row[5] || ''}</div>
-                                </div>
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="border-bottom: 1px solid rgba(18, 63, 84, 0.1);">
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: #123f54; width: 40%;">Title</td>
+                                        <td style="padding: 0.6rem 0; color: #123f54;">${row[1] || ''}</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid rgba(18, 63, 84, 0.1);">
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: #123f54;">Broadcaster/Client</td>
+                                        <td style="padding: 0.6rem 0; color: #123f54;">${row[2] || ''}</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid rgba(18, 63, 84, 0.1);">
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: #123f54;">Director</td>
+                                        <td style="padding: 0.6rem 0; color: #123f54;">${row[3] || ''}</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid rgba(18, 63, 84, 0.1);">
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: #123f54;">Notes/Project description</td>
+                                        <td style="padding: 0.6rem 0; color: #123f54;">${row[4] || ''}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: #123f54;">Date</td>
+                                        <td style="padding: 0.6rem 0; color: #123f54;">${row[5] || ''}</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     `;
