@@ -87,23 +87,39 @@
         }
 
         .social-icon {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
             background: #f3fffe;
             border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
             text-decoration: none;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            padding: 6px;
         }
 
         .social-icon:hover {
             background: #45d69d;
+            transform: translateY(-2px);
         }
 
-        .social-icon span {
-            font-size: 14px;
+        .social-icon img {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        .social-icon.whatsapp:hover {
+            background: #25d366;
+        }
+
+        .social-icon.instagram:hover {
+            background: #e4405f;
+        }
+
+        .social-icon.linkedin:hover {
+            background: #0077b5;
         }
 
         /* Navigation */
@@ -140,6 +156,38 @@
         .nav-links a.disabled {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #f3fffe;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
 
         /* Main Content Layout */
@@ -396,8 +444,44 @@
         }
 
         @media (max-width: 768px) {
+            /* Mobile Navigation */
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .main-nav {
+                position: relative;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(18, 63, 84, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.mobile-active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1rem;
+            }
+
+            /* Header adjustments for mobile */
             .site-header {
                 padding: 1rem;
+                position: relative;
             }
             
             .site-title {
@@ -407,11 +491,6 @@
             .contact-header {
                 flex-direction: column;
                 gap: 0.5rem;
-            }
-            
-            .nav-links {
-                gap: 1.5rem;
-                flex-direction: column;
             }
             
             .main-content {
@@ -430,6 +509,32 @@
             .contact-column {
                 padding: 1rem;
             }
+
+            .calendar-container iframe {
+                height: 250px;
+            }
+
+            .map-container {
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-title {
+                font-size: 1.2rem;
+            }
+            
+            .column-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            body {
+                font-size: 13px;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -442,20 +547,25 @@
                     <span class="location-phone">Cardiff and West Wales <a href="tel:+447813064680" class="phone-link">+44 7813 064680</a></span>
                     <div class="social-icons">
                         <a href="https://wa.me/447813064680" target="_blank" class="social-icon whatsapp">
-                            <span>💬</span>
+                            <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
                         </a>
                         <a href="https://www.instagram.com/richardgott/" target="_blank" class="social-icon instagram">
-                            <span>📷</span>
+                            <img src="assets/icons/instagram.svg" alt="Instagram" />
                         </a>
                         <a href="https://www.linkedin.com/in/soundrecordistuk/" target="_blank" class="social-icon linkedin">
-                            <span>💼</span>
+                            <img src="assets/icons/linkedin.svg" alt="LinkedIn" />
                         </a>
                     </div>
                 </div>
             </div>
             
             <nav class="main-nav">
-                <ul class="nav-links">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.html" class="active">HOME</a></li>
                     <li><a href="work-history.html">PAST WORK</a></li>
                     <li><a href="#" class="disabled">TESTIMONIALS</a></li>
@@ -561,6 +671,64 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            navLinks.classList.toggle('mobile-active');
+            menuToggle.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navLinks.classList.contains('mobile-active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close mobile menu when clicking on a link
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const navLinksContainer = document.getElementById('navLinks');
+                    const menuToggle = document.querySelector('.mobile-menu-toggle');
+                    
+                    if (navLinksContainer.classList.contains('mobile-active')) {
+                        navLinksContainer.classList.remove('mobile-active');
+                        menuToggle.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.main-nav');
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('mobile-active')) {
+                navLinks.classList.remove('mobile-active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const navLinks = document.getElementById('navLinks');
+                const menuToggle = document.querySelector('.mobile-menu-toggle');
+                
+                navLinks.classList.remove('mobile-active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
 </body>
 </html>
