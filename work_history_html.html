@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Recordist Projects | TV, Documentary & Corporate | Wales</title>
+    <meta name="description" content="Complete work history of Richard Gott - Location Sound Recordist. TV, documentary, corporate and branded content projects across Wales and beyond.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Richard Gott</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="work-history.html" class="active">Work History</a></li>
+                <li><a href="kit.html">Kit</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="work-history-section">
+            <h1>Past Work</h1>
+            <p style="text-align: center; font-style: italic; margin-bottom: 2rem; color: #666;">Everything, since the beginning of time...</p>
+            
+            <div id="loading" style="text-align: center; padding: 2rem; color: #666;">
+                Loading work history from Google Sheets...
+            </div>
+            
+            <div class="work-table-container">
+                <table class="work-table" id="workTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Production</th>
+                            <th>Company</th>
+                            <th>Client/Channel</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="workTableBody">
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="error" style="display: none; text-align: center; padding: 2rem; color: #ff6900;">
+                <p>Unable to load work history from Google Sheets at the moment.</p>
+                <p style="font-size: 12px; margin-top: 1rem;">Please check back later or <a href="contact.html">contact me directly</a> for my full work history.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Richard Gott - Location Sound Recordist. Professional sound recording services across Wales.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Load work history from Google Sheets
+        async function loadWorkHistory() {
+            const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTJIgoyErVS7HCVIz_HCq22MMDO_Tjyqx04U27ri7RsiBYe3F_HRBLdDfS3YL3sYhTGpKbYMg0SjPVk/pub?output=csv';
+            
+            try {
+                const response = await fetch(sheetUrl);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                
+                const csvText = await response.text();
+                const rows = parseCSV(csvText);
+                
+                if (rows.length > 1) {
+                    displayWorkHistory(rows);
+                } else {
+                    showError();
+                }
+            } catch (error) {
+                console.error('Error loading work history:', error);
+                showError();
+            }
+        }
+
+        function parseCSV(csvText) {
+            const lines = csvText.split('\n');
+            const result = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line) {
+                    // Simple CSV parsing - for more complex CSVs, you might want to use a library
+                    const columns = line.split(',').map(col => col.replace(/"/g, '').trim());
+                    result.push(columns);
+                }
+            }
+            
+            return result;
+        }
+
+        function displayWorkHistory(rows) {
+            const tbody = document.getElementById('workTableBody');
+            const headers = rows[0];
+            
+            // Clear loading message
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('workTable').style.display = 'table';
+            
+            // Process data rows (skip header)
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                if (row.length >= 4) { // Ensure we have enough columns
+                    const tr = document.createElement('tr');
+                    
+                    // Year
+                    const yearTd = document.createElement('td');
+                    yearTd.textContent = row[0] || '';
+                    yearTd.classList.add('year');
+                    tr.appendChild(yearTd);
+                    
+                    // Production
+                    const productionTd = document.createElement('td');
+                    productionTd.textContent = row[1] || '';
+                    tr.appendChild(productionTd);
+                    
+                    // Company
+                    const companyTd = document.createElement('td');
+                    companyTd.textContent = row[2] || '';
+                    tr.appendChild(companyTd);
+                    
+                    // Client/Channel
+                    const clientTd = document.createElement('td');
+                    clientTd.textContent = row[3] || '';
+                    tr.appendChild(clientTd);
+                    
+                    // Type
+                    const typeTd = document.createElement('td');
+                    const type = row[4] || '';
+                    typeTd.textContent = type;
+                    if (type.toLowerCase().includes('broadcast')) {
+                        typeTd.classList.add('broadcast');
+                    } else {
+                        typeTd.classList.add('non-broadcast');
+                    }
+                    tr.appendChild(typeTd);
+                    
+                    tbody.appendChild(tr);
+                }
+            }
+        }
+
+        function showError() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+        }
+
+        // Load work history when page loads
+        document.addEventListener('DOMContentLoaded', loadWorkHistory);
+    </script>
+</body>
+</html>

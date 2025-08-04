@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Richard Gott | Location Sound Recordist Wales</title>
+    <meta name="description" content="Contact Richard Gott - Location Sound Recordist in Cardiff and West Wales. Available for TV, documentary, corporate productions across Wales and beyond.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Richard Gott</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="work-history.html">Work History</a></li>
+                <li><a href="kit.html">Kit</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="contact-section">
+            <h1>Get In Touch</h1>
+            
+            <form class="contact-form" action="https://formspree.io/f/xpwaevpv" method="POST">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="company">Company/Production</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dates">Proposed Dates</label>
+                    <input type="text" id="dates" name="dates" placeholder="e.g. 15-17 March 2024">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="e.g. Cardiff, Swansea, etc.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+
+            <div class="contact-info">
+                <p><strong>Direct Contact:</strong></p>
+                <p>Email: <a href="mailto:richard@richardgott.co.uk">richard@richardgott.co.uk</a></p>
+                <p>Phone: <a href="tel:+447813064680">+44 7813 064680</a></p>
+            </div>
+
+            <div class="social-links">
+                <a href="https://wa.me/447813064680" target="_blank" class="whatsapp">WhatsApp</a>
+                <a href="https://www.instagram.com/richardgott/" target="_blank" class="instagram">Instagram</a>
+                <a href="https://www.linkedin.com/in/soundrecordistuk/" target="_blank" class="linkedin">LinkedIn</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Richard Gott - Location Sound Recordist. Professional sound recording services across Wales.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
