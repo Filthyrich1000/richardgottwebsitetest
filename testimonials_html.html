@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials | Richard Gott - Location Sound Recordist Wales</title>
+    <meta name="description" content="Client testimonials and reviews for Richard Gott - Location Sound Recordist in Wales. Professional sound recording services across Cardiff, Swansea and West Wales.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            color: #f3fffe;
+            background-color: #123f54;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: url('assets/images/Richard-Gott-soundcart.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .main-container {
+            min-height: 100vh;
+            background: linear-gradient(rgba(18, 63, 84, 0.9), rgba(18, 63, 84, 0.95));
+        }
+
+        /* Header Styles */
+        .site-header {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+            background: rgba(18, 63, 84, 0.95);
+        }
+
+        .site-title {
+            font-family: Arial, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #f3fffe;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .location-phone {
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            color: #f3fffe;
+            font-weight: normal;
+        }
+
+        .phone-link {
+            color: #45d69d;
+            text-decoration: underline;
+            font-weight: normal;
+        }
+
+        .phone-link:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #f3fffe;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 6px;
+        }
+
+        .social-icon:hover {
+            background: #45d69d;
+            transform: translateY(-2px);
+        }
+
+        .social-icon img {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        /* Navigation */
+        .main-nav {
+            border-top: 1px solid rgba(243, 255, 254, 0.2);
+            padding-top: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-family: Arial, sans-serif;
+            color: #f3fffe;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #45d69d;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            z-index: 1001;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #f3fffe;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .testimonials-section {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .page-title {
+            margin-bottom: 3rem;
+        }
+
+        .page-title h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            letter-spacing: 3px;
+        }
+
+        .page-title .green-text {
+            color: #45d69d;
+        }
+
+        .page-title .white-text {
+            color: #f3fffe;
+        }
+
+        /* Testimonials Grid */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: rgba(18, 63, 84, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(69, 214, 157, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(69, 214, 157, 0.2);
+        }
+
+        .client-name {
+            color: #45d69d;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .client-title {
+            color: #f3fffe;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .testimonial-text {
+            color: #f3fffe;
+            font-size: 1rem;
+            line-height: 1.7;
+            font-style: italic;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .quote-mark {
+            color: #45d69d;
+            font-size: 4rem;
+            font-weight: bold;
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        .quote-mark.opening {
+            position: absolute;
+            top: -1rem;
+            left: -0.5rem;
+        }
+
+        .quote-mark.closing {
+            position: absolute;
+            bottom: -2rem;
+            right: -0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .main-nav {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(18, 63, 84, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.mobile-active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1rem;
+            }
+
+            .site-header {
+                padding: 1rem;
+                position: relative;
+            }
+            
+            .site-title {
+                font-size: 1.5rem;
+            }
+            
+            .contact-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            .testimonials-section {
+                padding: 2rem 0;
+            }
+
+            .page-title h1 {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .testimonial-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 2rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .client-name {
+                font-size: 1.1rem;
+            }
+
+            .testimonial-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="site-header">
+            <div class="header-content">
+                <h1 class="site-title">Richard Gott | Sound recordist | Wales</h1>
+                <div class="contact-header">
+                    <span class="location-phone">Cardiff and West Wales <a href="tel:+447813064680" class="phone-link">+44 7813 064680</a></span>
+                    <div class="social-icons">
+                        <a href="https://wa.me/447813064680" target="_blank" class="social-icon whatsapp">
+                            <img src="assets/images/whatsapp.svg" alt="WhatsApp" />
+                        </a>
+                        <a href="https://www.instagram.com/richardgott/" target="_blank" class="social-icon instagram">
+                            <img src="assets/images/instagram.svg" alt="Instagram" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/soundrecordistuk/" target="_blank" class="social-icon linkedin">
+                            <img src="assets/images/linkedin.svg" alt="LinkedIn" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="work-history.html">PAST WORK</a></li>
+                    <li><a href="testimonials.html" class="active">TESTIMONIALS</a></li>
+                    <li><a href="kit.html">KIT</a></li>
+                    <li><a href="blog.html">BLOG</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="container">
+            <section class="testimonials-section">
+                <div class="page-title">
+                    <h1><span class="green-text">WHAT PEOPLE</span><br><span class="white-text">SAY</span></h1>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="client-name">JAKE CHURCHILL</div>
+                        <div class="client-title">HEAD OF FILM AND PRODUCTION<br>SBX STUDIOS</div>
+                        <div class="testimonial-text">
+                            <div class="quote-mark opening">"</div>
+                            I've worked with Richard Gott across a range of projects, from podcasts and documentaries to branded content. He is the most conscientious sound recordist I've ever worked with, consistently going above and beyond. Always finding creative, reliable solutions to challenging recording environments and adapting seamlessly to even the most unexpected requests thrown his way.
+                            <br><br>
+                            He brings a calm, thoughtful presence to set and location, is fantastic with contributors, and strikes the perfect balance between being engaging and professional. Full of fascinating conversation, but always respectful of the space and the people in it. I wouldn't hesitate to recommend Rich for any project.
+                            <div class="quote-mark closing">"</div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="client-name">SARA PENRHYN JONES</div>
+                        <div class="client-title">FILMMAKER</div>
+                        <div class="testimonial-text">
+                            <div class="quote-mark opening">"</div>
+                            I work as a media producer (often on challenging academic research projects), and bring Richard Gott in as the first-choice sound recordist every time. Using a professional sound recordist means that more ambitious and dynamic filming can be accomplished, and the quality of Richard's sound is always top-notch. Of equal importance to me, Richard is deeply respectful of contributors, and able to interact effortlessly with people from all walks of life. He has the perfect intuition for when to be sociable, to put people at ease, but also for when to step back and have minimal presence. Our collaborative projects have taken place in testing environments, and I always have total faith in Richard's professionalism and ability to overcome new technical or practical challenges as they arise. Moreover, he is good company, and a pleasure to spend time with, and (even better) never condescending towards women!
+                            <div class="quote-mark closing">"</div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="client-name">DOMINIC SUTHERLAND</div>
+                        <div class="client-title">DIRECTOR - NEXTSHOOT</div>
+                        <div class="testimonial-text">
+                            <div class="quote-mark opening">"</div>
+                            NextShoot has worked with Richard on a number of projects for key clients. Richard is always our first choice for sound as he embodies professionalism. He brings to each job a thoughtfulness in the preparation stage; how the sound will be covered for such specific set-up and the equipment required. He has very good kit of his own, and on complex set-ups has gone the extra mile to help us source any equipment we have needed to turn in. Or set he is very comfortable and professional with talent and other crew members, he is quick to find solutions under pressure and, crucially, captures excellent quality sound. He is also extremely good company. We can't recommend Richard highly enough. 5 stars.
+                            <div class="quote-mark closing">"</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Mobile menu toggle functionality
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            navLinks.classList.toggle('mobile-active');
+            menuToggle.classList.toggle('active');
+            
+            if (navLinks.classList.contains('mobile-active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close mobile menu when clicking on a link
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const navLinksContainer = document.getElementById('navLinks');
+                    const menuToggle = document.querySelector('.mobile-menu-toggle');
+                    
+                    if (navLinksContainer.classList.contains('mobile-active')) {
+                        navLinksContainer.classList.remove('mobile-active');
+                        menuToggle.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.main-nav');
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('mobile-active')) {
+                navLinks.classList.remove('mobile-active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const navLinks = document.getElementById('navLinks');
+                const menuToggle = document.querySelector('.mobile-menu-toggle');
+                
+                navLinks.classList.remove('mobile-active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
