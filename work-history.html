@@ -329,7 +329,7 @@
         }
 
         .mobile-card.expanded .mobile-card-toggle {
-            transform: rotate(45deg);
+            /* No rotation needed since we're using × and + symbols */
         }
 
         .mobile-card-content {
@@ -495,7 +495,7 @@
             <section class="work-history-section">
                 <div class="page-header">
                     <h1><span class="green-text">PAST</span> WORK</h1>
-                    <p class="subtitle">Everything, since the beginning of time...(v14)</p>
+                    <p class="subtitle">Everything, since the beginning of time...(v17)</p>
                 </div>
                 
                 <div id="loading">
@@ -567,7 +567,16 @@
 
         // Mobile card toggle functionality
         function toggleMobileCard(cardElement) {
+            const toggleIcon = cardElement.querySelector('.mobile-card-toggle');
+            
             cardElement.classList.toggle('expanded');
+            
+            // Update the icon based on expanded state
+            if (cardElement.classList.contains('expanded')) {
+                toggleIcon.textContent = '×';
+            } else {
+                toggleIcon.textContent = '+';
+            }
         }
 
         // Load work history from Google Sheets
