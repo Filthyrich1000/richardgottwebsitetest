@@ -250,11 +250,11 @@
             color: #123f54;
         }
 
-        .work-table tbody tr:nth-child(even) {
+        .work-table tbody tr:nth-child(odd) {
             background: #b9cbd4;
         }
 
-        .work-table tbody tr:nth-child(odd) {
+        .work-table tbody tr:nth-child(even) {
             background: #efefef;
         }
 
@@ -286,34 +286,47 @@
         /* Mobile Cards */
         .mobile-cards {
             display: none;
+            padding: 0;
         }
 
         .mobile-card {
-            background: #fff;
-            margin: 1rem;
-            border-radius: 8px;
+            background: #b9cbd4;
+            margin: 0;
+            border-bottom: 1px solid #999;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .mobile-card:nth-child(even) {
+            background: #efefef;
         }
 
         .mobile-card-header {
-            background: #123f54;
-            color: #f3fffe;
+            background: transparent;
+            color: #123f54;
             padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
+            font-weight: 600;
         }
 
         .mobile-card-title {
             font-weight: 600;
             font-size: 1rem;
+            color: #123f54;
         }
 
         .mobile-card-toggle {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #123f54;
             transition: transform 0.3s ease;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .mobile-card.expanded .mobile-card-toggle {
@@ -324,8 +337,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
-            background: #fff;
-            color: #123f54;
+            background: transparent;
         }
 
         .mobile-card.expanded .mobile-card-content {
@@ -333,31 +345,32 @@
         }
 
         .mobile-card-details {
-            padding: 1rem;
+            padding: 0 1rem 1rem 1rem;
+            border-top: 1px solid rgba(18, 63, 84, 0.2);
         }
 
         .mobile-detail-row {
             display: flex;
-            margin-bottom: 0.8rem;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 0.5rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(18, 63, 84, 0.1);
         }
 
         .mobile-detail-row:last-child {
             border-bottom: none;
-            margin-bottom: 0;
         }
 
         .mobile-detail-label {
             font-weight: 600;
-            width: 40%;
-            font-size: 0.85rem;
-            color: #666;
+            width: 45%;
+            font-size: 0.9rem;
+            color: #123f54;
+            padding-right: 1rem;
         }
 
         .mobile-detail-value {
-            width: 60%;
-            font-size: 0.85rem;
+            width: 55%;
+            font-size: 0.9rem;
+            color: #123f54;
         }
 
         /* Responsive Design */
