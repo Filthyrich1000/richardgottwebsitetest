@@ -110,18 +110,6 @@
             display: block;
         }
 
-        .social-icon.whatsapp:hover {
-            background: #25d366;
-        }
-
-        .social-icon.instagram:hover {
-            background: #e4405f;
-        }
-
-        .social-icon.linkedin:hover {
-            background: #0077b5;
-        }
-
         /* Navigation */
         .main-nav {
             border-top: 1px solid rgba(243, 255, 254, 0.2);
@@ -167,6 +155,10 @@
             background: none;
             border: none;
             z-index: 1001;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .mobile-menu-toggle span {
@@ -451,6 +443,9 @@
 
             .main-nav {
                 position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             .nav-links {
