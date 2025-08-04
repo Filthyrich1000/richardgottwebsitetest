@@ -67,16 +67,18 @@
             font-family: 'Futura', 'Trebuchet MS', sans-serif;
             font-size: 1rem;
             color: #f3fffe;
+            font-weight: normal;
         }
 
         .phone-link {
             color: #45d69d;
-            text-decoration: none;
-            font-weight: 500;
+            text-decoration: underline;
+            font-weight: normal;
         }
 
         .phone-link:hover {
             text-decoration: underline;
+            opacity: 0.8;
         }
 
         .social-icons {
@@ -158,12 +160,19 @@
         .column-header h2 {
             font-family: 'Roboto', sans-serif;
             font-size: 2.2rem;
-            font-weight: 300;
-            color: #45d69d;
+            font-weight: bold;
             text-align: center;
             margin-bottom: 2rem;
             line-height: 1.1;
             letter-spacing: 2px;
+        }
+
+        .column-header h2 .green-text {
+            color: #45d69d;
+        }
+
+        .column-header h2 .white-text {
+            color: #f3fffe;
         }
 
         /* About Column */
@@ -217,10 +226,12 @@
             font-size: 0.9rem;
             line-height: 1.6;
             color: #f3fffe;
+            font-weight: normal;
         }
 
         .about-text p {
             margin-bottom: 1.2rem;
+            font-weight: normal;
         }
 
         .about-text a {
@@ -256,6 +267,7 @@
             line-height: 1.5;
             color: #f3fffe;
             margin-bottom: 1rem;
+            font-weight: normal;
         }
 
         .calendar-container {
@@ -278,6 +290,12 @@
             border-radius: 5px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            height: 280px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
         }
 
         .bases-section {
@@ -452,7 +470,7 @@
                 <!-- Left Column - About Me -->
                 <section class="about-column">
                     <div class="column-header">
-                        <h2>ABOUT<br>ME</h2>
+                        <h2><span class="green-text">ABOUT</span><br><span class="white-text">ME</span></h2>
                     </div>
                     
                     <div class="profile-section">
@@ -481,7 +499,7 @@
                 <!-- Center Column - Diary & Bases -->
                 <section class="diary-column">
                     <div class="column-header">
-                        <h2>DIARY<br>& BASES</h2>
+                        <h2><span class="green-text">DIARY</span><br><span class="white-text">& BASES</span></h2>
                     </div>
                     
                     <div class="availability-section">
@@ -502,7 +520,7 @@
                         <p class="bases-description">Cardiff and Blaencelyn (near Cardigan) are my bases in Wales. If you click on the maximize icon in the header of the map it will open a larger scale map in a new window and give you a more contextual view of where my bases are in relation to the rest of Wales and the UK.</p>
                         
                         <div class="map-container">
-                            <iframe src="https://www.google.com/maps/d/embed?mid=1hneFRJKymMMHaHBPtiA0xD95ihG0U1s&ehbc=2E312F" width="100%" height="200" frameborder="0"></iframe>
+                            <iframe src="https://www.google.com/maps/d/embed?mid=1hneFRJKymMMHaHBPtiA0xD95ihG0U1s&ehbc=2E312F" frameborder="0"></iframe>
                         </div>
                         
                         <p class="bases-coverage">These two bases offer pretty good coverage of South and West Wales, including Swansea and Pembrokeshire and also for work in Bristol.</p>
@@ -512,7 +530,7 @@
                 <!-- Right Column - Contact Me -->
                 <section class="contact-column">
                     <div class="column-header">
-                        <h2>CONTACT<br>ME</h2>
+                        <h2><span class="green-text">CONTACT</span><br><span class="white-text">ME</span></h2>
                     </div>
                     
                     <form class="contact-form" action="https://formspree.io/f/xpwaevpv" method="POST">
@@ -536,7 +554,7 @@
                     </form>
 
                     <div class="vcard-section">
-                        <p><a href="#" class="vcard-link">Add me to your address book: V-card</a></p>
+                        <p><a href="https://drive.google.com/file/d/1e7KBXEWOIriYHeFrWJWGyzVfN43yUw33/view?usp=drive_link" class="vcard-link" target="_blank">Add me to your address book: V-card</a></p>
                     </div>
                 </section>
             </div>
