@@ -222,7 +222,7 @@
 
         .kit-column.special {
             background: #7dd3a0;
-            color: #123f54;
+            color: #f3fffe;
         }
 
         .kit-column h2 {
@@ -232,24 +232,39 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             line-height: 1.1;
+            text-align: center;
         }
 
-        .kit-column.standard h2 {
+        .kit-column.standard h2 .blue-text {
             color: #123f54;
         }
 
-        .kit-column.extra h2 {
+        .kit-column.standard h2 .white-text {
+            color: #f3fffe;
+        }
+
+        .kit-column.extra h2 .green-text {
             color: #45d69d;
         }
 
-        .kit-column.special h2 {
+        .kit-column.extra h2 .white-text {
+            color: #f3fffe;
+        }
+
+        .kit-column.special h2 .blue-text {
             color: #123f54;
+        }
+
+        .kit-column.special h2 .white-text {
+            color: #f3fffe;
         }
 
         .kit-description {
             font-size: 1rem;
             margin-bottom: 2rem;
             line-height: 1.6;
+            text-align: center;
+            color: #f3fffe;
         }
 
         .kit-list {
@@ -272,18 +287,7 @@
             left: 0;
             font-weight: bold;
             font-size: 1.2rem;
-        }
-
-        .kit-column.standard .kit-list li:before {
-            color: #123f54;
-        }
-
-        .kit-column.extra .kit-list li:before {
-            color: #45d69d;
-        }
-
-        .kit-column.special .kit-list li:before {
-            color: #123f54;
+            color: #f3fffe;
         }
 
         /* Responsive Design */
@@ -418,7 +422,7 @@
             <section class="kit-section">
                 <!-- Standard Kit Column -->
                 <div class="kit-column standard">
-                    <h2>STANDARD<br>KIT</h2>
+                    <h2><span class="blue-text">STANDARD</span><br><span class="white-text">KIT</span></h2>
                     <p class="kit-description">For many productions my standard PSC kit will be enough.</p>
                     <ul class="kit-list">
                         <li>Sound Devices 833 eight channel mixer/recorder cabled to camera</li>
@@ -434,7 +438,7 @@
 
                 <!-- Extra Kit Column -->
                 <div class="kit-column extra">
-                    <h2>EXTRA<br>KIT</h2>
+                    <h2><span class="green-text">EXTRA</span><br><span class="white-text">KIT</span></h2>
                     <p class="kit-description">For more complex productions additional kit is available for hire if needed.</p>
                     <ul class="kit-list">
                         <li>Another five radio mic kits (a total of seven in all)</li>
@@ -448,7 +452,7 @@
 
                 <!-- Special Kit Column -->
                 <div class="kit-column special">
-                    <h2>SPECIAL<br>KIT</h2>
+                    <h2><span class="blue-text">SPECIAL</span><br><span class="white-text">KIT</span></h2>
                     <p class="kit-description">Some interesting bits 'n' bobs and curios!</p>
                     <ul class="kit-list">
                         <li>Ambisonics recording kit</li>
