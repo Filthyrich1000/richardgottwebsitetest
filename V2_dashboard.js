@@ -202,7 +202,7 @@ FinancialDashboard.prototype.createCharts = function() {
         });
         console.log('Oscillator chart created successfully');
 
-        // Moving Averages Chart - Chart.js v2 syntax
+        // Moving Averages Chart - Chart.js v2 syntax with OB/OS lines
         var maCtx = document.getElementById('movingAveragesChart').getContext('2d');
         console.log('Creating MA chart...');
         
@@ -216,7 +216,9 @@ FinancialDashboard.prototype.createCharts = function() {
                     { label: '21-day EMA', data: [65, 66, 67, 68, 68, 67, 68], borderColor: '#2196f3', borderWidth: 2, fill: false, pointRadius: 1 },
                     { label: '35-day SMA', data: [60, 61, 63, 64, 65, 64, 65], borderColor: '#4caf50', borderWidth: 2, fill: false, pointRadius: 1 },
                     { label: '50-day SMA', data: [55, 57, 59, 60, 61, 60, 61], borderColor: '#000000', borderWidth: 2, fill: false, pointRadius: 1 },
-                    { label: '200-day SMA', data: [45, 47, 49, 51, 53, 52, 53], borderColor: '#ffc107', borderWidth: 2, fill: false, pointRadius: 1 }
+                    { label: '200-day SMA', data: [45, 47, 49, 51, 53, 52, 53], borderColor: '#ffc107', borderWidth: 2, fill: false, pointRadius: 1 },
+                    { label: 'Overbought (75%)', data: [75, 75, 75, 75, 75, 75, 75], borderColor: '#ff0000', borderWidth: 2, fill: false, pointRadius: 0, borderDash: [5, 5] },
+                    { label: 'Oversold (25%)', data: [25, 25, 25, 25, 25, 25, 25], borderColor: '#00ff00', borderWidth: 2, fill: false, pointRadius: 0, borderDash: [5, 5] }
                 ]
             },
             options: {
@@ -242,27 +244,35 @@ FinancialDashboard.prototype.createCharts = function() {
 
 FinancialDashboard.prototype.updateDisplay = function() {
     var exchangeData = this.data[this.currentExchange];
-    if (!exchangeData) return;
+    if (!exchangeData) {
+        console.error('No data for exchange:', this.currentExchange);
+        return;
+    }
     
-    document.getElementById('summation-value').textContent = exchangeData.summationIndex.current.toFixed(2);
-    document.getElementById('oscillator-value').textContent = exchangeData.oscillator.current.toFixed(2);
-    
-    this.updateChangeIndicator('summation-change', exchangeData.summationIndex.change);
-    this.updateChangeIndicator('oscillator-change', exchangeData.oscillator.change);
-    
-    document.getElementById('sma5-value').textContent = exchangeData.movingAverages.sma5.toFixed(1);
-    document.getElementById('ema10-value').textContent = exchangeData.movingAverages.ema10.toFixed(1);
-    document.getElementById('ma20-value').textContent = exchangeData.movingAverages.ema21.toFixed(1);
-    document.getElementById('sma35-value').textContent = exchangeData.movingAverages.sma35.toFixed(1);
-    document.getElementById('ma50-value').textContent = exchangeData.movingAverages.sma50.toFixed(1);
-    document.getElementById('ma200-value').textContent = exchangeData.movingAverages.sma200.toFixed(1);
-    
-    document.getElementById('advancing-stocks').textContent = exchangeData.stats.advancing;
-    document.getElementById('declining-stocks').textContent = exchangeData.stats.declining;
-    document.getElementById('net-advances').textContent = exchangeData.stats.netAdvances > 0 ? '+' + exchangeData.stats.netAdvances : exchangeData.stats.netAdvances;
-    document.getElementById('total-stocks').textContent = exchangeData.stats.total;
-    
-    this.updateCharts(exchangeData);
+    // Safely update values with error checking
+    try {
+        document.getElementById('summation-value').textContent = (exchangeData.summationIndex && exchangeData.summationIndex.current !== undefined) ? exchangeData.summationIndex.current.toFixed(2) : '--';
+        document.getElementById('oscillator-value').textContent = (exchangeData.oscillator && exchangeData.oscillator.current !== undefined) ? exchangeData.oscillator.current.toFixed(2) : '--';
+        
+        this.updateChangeIndicator('summation-change', exchangeData.summationIndex ? exchangeData.summationIndex.change : 0);
+        this.updateChangeIndicator('oscillator-change', exchangeData.oscillator ? exchangeData.oscillator.change : 0);
+        
+        document.getElementById('sma5-value').textContent = (exchangeData.movingAverages && exchangeData.movingAverages.sma5 !== undefined) ? exchangeData.movingAverages.sma5.toFixed(1) : '--';
+        document.getElementById('ema10-value').textContent = (exchangeData.movingAverages && exchangeData.movingAverages.ema10 !== undefined) ? exchangeData.movingAverages.ema10.toFixed(1) : '--';
+        document.getElementById('ma20-value').textContent = (exchangeData.movingAverages && exchangeData.movingAverages.ema21 !== undefined) ? exchangeData.movingAverages.ema21.toFixed(1) : '--';
+        document.getElementById('sma35-value').textContent = (exchangeData.movingAverages && exchangeData.movingAverages.sma35 !== undefined) ? exchangeData.movingAverages.sma35.toFixed(1) : '--';
+        document.getElementById('ma50-value').textContent = (exchangeData.movingAverages && exchangeData.movingAverages.sma50 !== undefined) ? exchangeData.movingAverages.sma50.toFixed(1) : '--';
+        document.getElementById('ma200-value').textContent = (exchangeData.movingAverages && exchangeData.movingAverages.sma200 !== undefined) ? exchangeData.movingAverages.sma200.toFixed(1) : '--';
+        
+        document.getElementById('advancing-stocks').textContent = (exchangeData.stats && exchangeData.stats.advancing !== undefined) ? exchangeData.stats.advancing : '--';
+        document.getElementById('declining-stocks').textContent = (exchangeData.stats && exchangeData.stats.declining !== undefined) ? exchangeData.stats.declining : '--';
+        document.getElementById('net-advances').textContent = (exchangeData.stats && exchangeData.stats.netAdvances !== undefined) ? (exchangeData.stats.netAdvances > 0 ? '+' + exchangeData.stats.netAdvances : exchangeData.stats.netAdvances) : '--';
+        document.getElementById('total-stocks').textContent = (exchangeData.stats && exchangeData.stats.total !== undefined) ? exchangeData.stats.total : '--';
+        
+        this.updateCharts(exchangeData);
+    } catch (error) {
+        console.error('Error updating display:', error);
+    }
 };
 
 FinancialDashboard.prototype.updateChangeIndicator = function(elementId, change) {
@@ -297,12 +307,25 @@ FinancialDashboard.prototype.updateCharts = function(exchangeData) {
     this.charts.oscillator.update();
     
     // Update Moving Averages chart
-    this.charts.movingAverages.data.datasets[0].data = exchangeData.movingAverages.history.sma5;
-    this.charts.movingAverages.data.datasets[1].data = exchangeData.movingAverages.history.ema10;
-    this.charts.movingAverages.data.datasets[2].data = exchangeData.movingAverages.history.ema21;
-    this.charts.movingAverages.data.datasets[3].data = exchangeData.movingAverages.history.sma35;
-    this.charts.movingAverages.data.datasets[4].data = exchangeData.movingAverages.history.sma50;
-    this.charts.movingAverages.data.datasets[5].data = exchangeData.movingAverages.history.sma200;
+    if (exchangeData.movingAverages && exchangeData.movingAverages.history) {
+        this.charts.movingAverages.data.datasets[0].data = exchangeData.movingAverages.history.sma5;
+        this.charts.movingAverages.data.datasets[1].data = exchangeData.movingAverages.history.ema10;
+        this.charts.movingAverages.data.datasets[2].data = exchangeData.movingAverages.history.ema21;
+        this.charts.movingAverages.data.datasets[3].data = exchangeData.movingAverages.history.sma35;
+        this.charts.movingAverages.data.datasets[4].data = exchangeData.movingAverages.history.sma50;
+        this.charts.movingAverages.data.datasets[5].data = exchangeData.movingAverages.history.sma200;
+        
+        // Keep the overbought/oversold lines constant
+        var labels = this.charts.movingAverages.data.labels;
+        var obData = [];
+        var osData = [];
+        for (var i = 0; i < labels.length; i++) {
+            obData.push(75);
+            osData.push(25);
+        }
+        this.charts.movingAverages.data.datasets[6].data = obData; // Overbought line
+        this.charts.movingAverages.data.datasets[7].data = osData; // Oversold line
+    }
     this.charts.movingAverages.update();
 };
 
