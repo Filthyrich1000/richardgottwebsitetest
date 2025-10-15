@@ -303,10 +303,6 @@ class FinancialDashboard {
         
         // McClellan Summation Index Chart
         const summationCtx = document.getElementById('summationChart').getContext('2d');
-        console.log('Summation chart context:', summationCtx);
-        
-        // Set canvas size to ensure proper rendering
-        summationCtx.canvas.style.height = '300px';
         
         this.charts.summation = new Chart(summationCtx, {
             type: 'line',
@@ -332,17 +328,12 @@ class FinancialDashboard {
                     }
                 ]
             },
-            options: this.getChartOptions('McClellan Summation Index', false, 'day')
+            options: this.getSummationChartOptions()
         });
-        
-        // Force initial render
-        this.charts.summation.update();
-        
-        console.log('Summation chart created:', this.charts.summation);
 
         // McClellan Oscillator Chart
         const oscillatorCtx = document.getElementById('oscillatorChart').getContext('2d');
-        oscillatorCtx.canvas.style.height = '300px';
+        
         this.charts.oscillator = new Chart(oscillatorCtx, {
             type: 'bar',
             data: {
@@ -354,17 +345,12 @@ class FinancialDashboard {
                     borderWidth: 1
                 }]
             },
-            options: this.getChartOptions('McClellan Oscillator', true, 'day')
+            options: this.getOscillatorChartOptions()
         });
-        
-        // Force initial render
-        this.charts.oscillator.update();
-        
-        console.log('Oscillator chart created:', this.charts.oscillator);
 
         // Moving Averages Chart
         const maCtx = document.getElementById('movingAveragesChart').getContext('2d');
-        maCtx.canvas.style.height = '300px';
+        
         this.charts.movingAverages = new Chart(maCtx, {
             type: 'line',
             data: {
@@ -425,18 +411,14 @@ class FinancialDashboard {
                     }
                 ]
             },
-            options: this.getChartOptions('Percent of Stocks Above Moving Averages (%)', false, 'day', true)
+            options: this.getMAChartOptions()
         });
         
-        // Force initial render
-        this.charts.movingAverages.update();
-        
-        console.log('Moving averages chart created:', this.charts.movingAverages);
         console.log('All charts created successfully');
     }
 
-    getChartOptions(title, showZeroLine = false, timeUnit = 'day', showOverboughtOversold = false) {
-        const options = {
+    getSummationChartOptions() {
+        return {
             responsive: true,
             maintainAspectRatio: false,
             interaction: {
@@ -446,39 +428,25 @@ class FinancialDashboard {
             plugins: {
                 legend: {
                     display: false
-                },
-                title: {
-                    display: false
                 }
             },
             scales: {
                 x: {
                     type: 'time',
                     time: {
-                        unit: timeUnit,
-                        stepSize: 1,
+                        unit: 'day',
                         displayFormats: {
-                            day: 'MMM dd',
-                            week: 'MMM dd',
-                            month: 'MMM yyyy'
-                        },
-                        tooltipFormat: 'MMM dd, yyyy',
-                        parser: 'YYYY-MM-DD'
+                            day: 'MMM dd'
+                        }
                     },
                     grid: {
                         color: 'rgba(0,0,0,0.1)'
-                    },
-                    ticks: {
-                        source: 'data',
-                        maxTicksLimit: 10
                     }
                 },
                 y: {
                     grid: {
                         color: 'rgba(0,0,0,0.1)'
-                    },
-                    beginAtZero: false,
-                    display: true
+                    }
                 }
             },
             elements: {
@@ -488,56 +456,84 @@ class FinancialDashboard {
                 }
             }
         };
+    }
 
-        // Add zero line for oscillator
-        if (showZeroLine) {
-            options.plugins.annotation = {
-                annotations: {
-                    zeroLine: {
-                        type: 'line',
-                        scaleID: 'y',
-                        value: 0,
-                        borderColor: '#333333',
-                        borderWidth: 1,
-                        borderDash: [5, 5]
-                    }
+    getOscillatorChartOptions() {
+        return {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            plugins: {
+                legend: {
+                    display: false
                 }
-            };
-        }
-
-        // Add overbought/oversold lines for MA chart
-        if (showOverboughtOversold) {
-            options.plugins.annotation = {
-                annotations: {
-                    overbought: {
-                        type: 'line',
-                        scaleID: 'y',
-                        value: 75,
-                        borderColor: '#ff0000',
-                        borderWidth: 2,
-                        label: {
-                            display: true,
-                            content: 'OB',
-                            position: 'end'
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        displayFormats: {
+                            day: 'MMM dd'
                         }
                     },
-                    oversold: {
-                        type: 'line',
-                        scaleID: 'y',
-                        value: 25,
-                        borderColor: '#00ff00',
-                        borderWidth: 2,
-                        label: {
-                            display: true,
-                            content: 'OS',
-                            position: 'end'
-                        }
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
                     }
                 }
-            };
-        }
+            }
+        };
+    }
 
-        return options;
+    getMAChartOptions() {
+        return {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        displayFormats: {
+                            day: 'MMM dd'
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: 100,
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    radius: 0,
+                    hoverRadius: 4
+                }
+            }
+        };
     }
 
     updateDisplay() {
@@ -654,13 +650,6 @@ class FinancialDashboard {
         // Always update timestamp
         this.updateLastUpdateTime();
     }
-}
-
-// Register Chart.js plugins
-if (typeof window.chartjs !== 'undefined' && window.chartjs.annotation) {
-    Chart.register(window.chartjs.annotation);
-} else if (typeof ChartjsPluginAnnotation !== 'undefined') {
-    Chart.register(ChartjsPluginAnnotation);
 }
 
 // Initialize dashboard when page loads
