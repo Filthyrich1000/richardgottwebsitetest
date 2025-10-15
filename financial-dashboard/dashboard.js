@@ -241,8 +241,12 @@ class FinancialDashboard {
     }
 
     createCharts() {
+        console.log('Creating charts...');
+        
         // McClellan Summation Index Chart
         const summationCtx = document.getElementById('summationChart').getContext('2d');
+        console.log('Summation chart context:', summationCtx);
+        
         this.charts.summation = new Chart(summationCtx, {
             type: 'line',
             data: {
@@ -258,6 +262,8 @@ class FinancialDashboard {
             },
             options: this.getChartOptions('McClellan Summation Index')
         });
+        
+        console.log('Summation chart created:', this.charts.summation);
 
         // McClellan Oscillator Chart
         const oscillatorCtx = document.getElementById('oscillatorChart').getContext('2d');
@@ -276,6 +282,8 @@ class FinancialDashboard {
             },
             options: this.getChartOptions('McClellan Oscillator', true)
         });
+        
+        console.log('Oscillator chart created:', this.charts.oscillator);
 
         // Moving Averages Chart
         const maCtx = document.getElementById('movingAveragesChart').getContext('2d');
@@ -314,6 +322,9 @@ class FinancialDashboard {
             },
             options: this.getChartOptions('Percent of Stocks Above Moving Averages (%)')
         });
+        
+        console.log('Moving averages chart created:', this.charts.movingAverages);
+        console.log('All charts created successfully');
     }
 
     getChartOptions(title, showZeroLine = false) {
@@ -332,11 +343,12 @@ class FinancialDashboard {
                 x: {
                     type: 'time',
                     time: {
-                        parser: 'YYYY-MM-DD',
+                        unit: 'day',
                         displayFormats: {
-                            day: 'MMM DD',
-                            month: 'MMM'
-                        }
+                            day: 'MMM dd',
+                            month: 'MMM yyyy'
+                        },
+                        tooltipFormat: 'MMM dd, yyyy'
                     },
                     grid: {
                         color: 'rgba(0,0,0,0.1)'
@@ -345,23 +357,7 @@ class FinancialDashboard {
                 y: {
                     grid: {
                         color: 'rgba(0,0,0,0.1)'
-                    },
-                    ...(showZeroLine && {
-                        plugins: {
-                            annotation: {
-                                annotations: {
-                                    line1: {
-                                        type: 'line',
-                                        yMin: 0,
-                                        yMax: 0,
-                                        borderColor: '#333',
-                                        borderWidth: 1,
-                                        borderDash: [5, 5]
-                                    }
-                                }
-                            }
-                        }
-                    })
+                    }
                 }
             },
             elements: {
@@ -408,19 +404,26 @@ class FinancialDashboard {
     }
 
     updateCharts(exchangeData) {
+        console.log('Updating charts with data:', exchangeData);
+        
         // Update Summation Index chart
+        console.log('Summation history data:', exchangeData.summationIndex.history);
         this.charts.summation.data.datasets[0].data = exchangeData.summationIndex.history;
         this.charts.summation.update('none');
         
         // Update Oscillator chart
+        console.log('Oscillator history data:', exchangeData.oscillator.history);
         this.charts.oscillator.data.datasets[0].data = exchangeData.oscillator.history;
         this.charts.oscillator.update('none');
         
         // Update Moving Averages chart
+        console.log('MA history data:', exchangeData.movingAverages.history);
         this.charts.movingAverages.data.datasets[0].data = exchangeData.movingAverages.history.ma20;
         this.charts.movingAverages.data.datasets[1].data = exchangeData.movingAverages.history.ma50;
         this.charts.movingAverages.data.datasets[2].data = exchangeData.movingAverages.history.ma200;
         this.charts.movingAverages.update('none');
+        
+        console.log('Charts updated successfully');
     }
 
     updateLastUpdateTime() {
@@ -437,20 +440,30 @@ class FinancialDashboard {
     }
 
     async refreshData() {
-        // In production, this would fetch real data from the PHP backend
-        console.log('Refreshing data...');
+        try {
+            console.log('Refreshing data for exchange:', this.currentExchange);
+            
+            // Try to fetch real data from API
+            const response = await fetch(`api/get-data.php?exchange=${this.currentExchange}`);
+            
+            if (response.ok) {
+                const newData = await response.json();
+                console.log('Received data:', newData);
+                
+                // Update data structure to match API response
+                if (newData && !newData.error) {
+                    this.data[this.currentExchange] = newData;
+                    this.updateDisplay();
+                }
+            } else {
+                console.log('API not available, using sample data');
+            }
+        } catch (error) {
+            console.log('Error fetching data, using sample data:', error.message);
+        }
         
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // For now, just update the timestamp
+        // Always update timestamp
         this.updateLastUpdateTime();
-        
-        // In production, you would:
-        // const response = await fetch('api/get-data.php?exchange=' + this.currentExchange);
-        // const newData = await response.json();
-        // this.data[this.currentExchange] = newData;
-        // this.updateDisplay();
     }
 }
 
@@ -459,54 +472,4 @@ document.addEventListener('DOMContentLoaded', () => {
     window.dashboard = new FinancialDashboard();
 });
 
-// Add Chart.js time adapter
-Chart.register({
-    id: 'timeAdapter',
-    beforeInit: function(chart) {
-        if (!Chart._adapters._date) {
-            Chart._adapters._date = {
-                parse: function(value) {
-                    return new Date(value);
-                },
-                format: function(time, format) {
-                    const date = new Date(time);
-                    if (format === 'MMM DD') {
-                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                    }
-                    if (format === 'MMM') {
-                        return date.toLocaleDateString('en-US', { month: 'short' });
-                    }
-                    return date.toLocaleDateString();
-                },
-                add: function(time, amount, unit) {
-                    const date = new Date(time);
-                    if (unit === 'day') {
-                        date.setDate(date.getDate() + amount);
-                    }
-                    return date.getTime();
-                },
-                diff: function(max, min, unit) {
-                    const diffTime = Math.abs(max - min);
-                    if (unit === 'day') {
-                        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    }
-                    return diffTime;
-                },
-                startOf: function(time, unit) {
-                    const date = new Date(time);
-                    if (unit === 'day') {
-                        date.setHours(0, 0, 0, 0);
-                    }
-                    return date.getTime();
-                },
-                endOf: function(time, unit) {
-                    const date = new Date(time);
-                    if (unit === 'day') {
-                        date.setHours(23, 59, 59, 999);
-                    }
-                    return date.getTime();
-                }
-            };
-        }
-    }
-});
+// Chart.js is now properly configured with the date-fns adapter
