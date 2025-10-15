@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Financial Indicators Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <h1>Global Financial Indicators Dashboard</h1>
+            <p class="subtitle">McClellan Indicators & Market Breadth Analysis</p>
+            <div class="last-update">
+                Last Updated: <span id="lastUpdate">Loading...</span>
+            </div>
+        </header>
+
+        <nav class="exchange-tabs">
+            <button class="tab-btn active" data-exchange="FTSE">FTSE 100</button>
+            <button class="tab-btn" data-exchange="TSX">TSX</button>
+            <button class="tab-btn" data-exchange="HSI">Hang Seng</button>
+            <button class="tab-btn" data-exchange="KLCI">Malaysia</button>
+            <button class="tab-btn" data-exchange="N225">Nikkei 225</button>
+        </nav>
+
+        <main class="dashboard-content">
+            <!-- McClellan Summation Index -->
+            <section class="indicator-section">
+                <div class="indicator-header">
+                    <h2>McClellan Summation Index</h2>
+                    <div class="indicator-info">
+                        <span class="current-value" id="summation-value">Loading...</span>
+                        <span class="change-indicator" id="summation-change">--</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="summationChart"></canvas>
+                </div>
+            </section>
+
+            <!-- McClellan Oscillator -->
+            <section class="indicator-section">
+                <div class="indicator-header">
+                    <h2>McClellan Oscillator</h2>
+                    <div class="indicator-info">
+                        <span class="current-value" id="oscillator-value">Loading...</span>
+                        <span class="change-indicator" id="oscillator-change">--</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="oscillatorChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Percent of Stocks Above Moving Averages -->
+            <section class="indicator-section">
+                <div class="indicator-header">
+                    <h2>Percent of Stocks Above Key Moving Averages</h2>
+                    <div class="ma-legend">
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #ff1744;"></span>
+                            5-day SMA: <span id="sma5-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #9c27b0;"></span>
+                            10-day EMA: <span id="ema10-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #2196f3;"></span>
+                            21-day EMA: <span id="ma20-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #4caf50;"></span>
+                            35-day SMA: <span id="sma35-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #000000;"></span>
+                            50-day SMA: <span id="ma50-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #ffc107;"></span>
+                            200-day SMA: <span id="ma200-value">--</span>%
+                        </span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="movingAveragesChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Market Statistics -->
+            <section class="stats-section">
+                <h3>Market Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Advancing Stocks</div>
+                        <div class="stat-value" id="advancing-stocks">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Declining Stocks</div>
+                        <div class="stat-value" id="declining-stocks">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Net Advances</div>
+                        <div class="stat-value" id="net-advances">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Stocks</div>
+                        <div class="stat-value" id="total-stocks">--</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>Data provided by EODHD.com | Dashboard by Financial Analytics</p>
+            <p class="disclaimer">This dashboard is for informational purposes only and should not be considered as investment advice.</p>
+        </footer>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
