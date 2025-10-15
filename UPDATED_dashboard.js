@@ -13,6 +13,13 @@ class FinancialDashboard {
         this.createCharts();
         this.updateDisplay();
         this.updateLastUpdateTime();
+        
+        // Ensure charts render properly
+        setTimeout(() => {
+            Object.values(this.charts).forEach(chart => {
+                if (chart) chart.resize();
+            });
+        }, 100);
     }
 
     setupEventListeners() {
@@ -57,9 +64,12 @@ class FinancialDashboard {
                     history: this.generateOscillatorData(100)
                 },
                 movingAverages: {
-                    ma20: 78.5,
-                    ma50: 65.2,
-                    ma200: 52.8,
+                    sma5: 78.5,
+                    ema10: 72.3,
+                    ema21: 68.1,
+                    sma35: 65.2,
+                    sma50: 60.8,
+                    sma200: 52.8,
                     history: this.generateMAData(100)
                 },
                 stats: {
@@ -81,9 +91,12 @@ class FinancialDashboard {
                     history: this.generateOscillatorData(100)
                 },
                 movingAverages: {
-                    ma20: 72.3,
-                    ma50: 58.9,
-                    ma200: 45.6,
+                    sma5: 72.3,
+                    ema10: 68.1,
+                    ema21: 63.4,
+                    sma35: 58.9,
+                    sma50: 54.2,
+                    sma200: 45.6,
                     history: this.generateMAData(100)
                 },
                 stats: {
@@ -105,9 +118,12 @@ class FinancialDashboard {
                     history: this.generateOscillatorData(100)
                 },
                 movingAverages: {
-                    ma20: 68.9,
-                    ma50: 54.2,
-                    ma200: 41.7,
+                    sma5: 68.9,
+                    ema10: 64.5,
+                    ema21: 59.8,
+                    sma35: 54.2,
+                    sma50: 48.7,
+                    sma200: 41.7,
                     history: this.generateMAData(100)
                 },
                 stats: {
@@ -129,9 +145,12 @@ class FinancialDashboard {
                     history: this.generateOscillatorData(100)
                 },
                 movingAverages: {
-                    ma20: 63.3,
-                    ma50: 50.0,
-                    ma200: 36.7,
+                    sma5: 63.3,
+                    ema10: 58.9,
+                    ema21: 54.2,
+                    sma35: 50.0,
+                    sma50: 45.1,
+                    sma200: 36.7,
                     history: this.generateMAData(100)
                 },
                 stats: {
@@ -153,9 +172,12 @@ class FinancialDashboard {
                     history: this.generateOscillatorData(100)
                 },
                 movingAverages: {
-                    ma20: 81.2,
-                    ma50: 69.8,
-                    ma200: 58.4,
+                    sma5: 81.2,
+                    ema10: 76.8,
+                    ema21: 72.4,
+                    sma35: 69.8,
+                    sma50: 64.3,
+                    sma200: 58.4,
                     history: this.generateMAData(100)
                 },
                 stats: {
@@ -211,33 +233,69 @@ class FinancialDashboard {
     }
 
     generateMAData(points) {
-        const ma20Data = [];
-        const ma50Data = [];
-        const ma200Data = [];
+        const sma5Data = [];
+        const ema10Data = [];
+        const ema21Data = [];
+        const sma35Data = [];
+        const sma50Data = [];
+        const sma200Data = [];
         
-        let ma20 = 70;
-        let ma50 = 60;
-        let ma200 = 50;
+        let sma5 = 75;
+        let ema10 = 70;
+        let ema21 = 65;
+        let sma35 = 60;
+        let sma50 = 55;
+        let sma200 = 45;
         
         for (let i = 0; i < points; i++) {
-            ma20 += (Math.random() - 0.5) * 5;
-            ma50 += (Math.random() - 0.5) * 3;
-            ma200 += (Math.random() - 0.5) * 2;
+            sma5 += (Math.random() - 0.5) * 8;
+            ema10 += (Math.random() - 0.5) * 6;
+            ema21 += (Math.random() - 0.5) * 5;
+            sma35 += (Math.random() - 0.5) * 4;
+            sma50 += (Math.random() - 0.5) * 3;
+            sma200 += (Math.random() - 0.5) * 2;
             
-            ma20 = Math.max(0, Math.min(100, ma20));
-            ma50 = Math.max(0, Math.min(100, ma50));
-            ma200 = Math.max(0, Math.min(100, ma200));
+            sma5 = Math.max(0, Math.min(100, sma5));
+            ema10 = Math.max(0, Math.min(100, ema10));
+            ema21 = Math.max(0, Math.min(100, ema21));
+            sma35 = Math.max(0, Math.min(100, sma35));
+            sma50 = Math.max(0, Math.min(100, sma50));
+            sma200 = Math.max(0, Math.min(100, sma200));
             
             const date = new Date();
             date.setDate(date.getDate() - (points - i));
             const dateStr = date.toISOString().split('T')[0];
             
-            ma20Data.push({ x: dateStr, y: parseFloat(ma20.toFixed(1)) });
-            ma50Data.push({ x: dateStr, y: parseFloat(ma50.toFixed(1)) });
-            ma200Data.push({ x: dateStr, y: parseFloat(ma200.toFixed(1)) });
+            sma5Data.push({ x: dateStr, y: parseFloat(sma5.toFixed(1)) });
+            ema10Data.push({ x: dateStr, y: parseFloat(ema10.toFixed(1)) });
+            ema21Data.push({ x: dateStr, y: parseFloat(ema21.toFixed(1)) });
+            sma35Data.push({ x: dateStr, y: parseFloat(sma35.toFixed(1)) });
+            sma50Data.push({ x: dateStr, y: parseFloat(sma50.toFixed(1)) });
+            sma200Data.push({ x: dateStr, y: parseFloat(sma200.toFixed(1)) });
         }
         
-        return { ma20: ma20Data, ma50: ma50Data, ma200: ma200Data };
+        return { 
+            sma5: sma5Data, 
+            ema10: ema10Data, 
+            ema21: ema21Data, 
+            sma35: sma35Data, 
+            sma50: sma50Data, 
+            sma200: sma200Data 
+        };
+    }
+
+    // Generate 10-period moving average for summation index
+    calculateMovingAverage(data, period = 10) {
+        const maData = [];
+        for (let i = period - 1; i < data.length; i++) {
+            const slice = data.slice(i - period + 1, i + 1);
+            const average = slice.reduce((sum, point) => sum + point.y, 0) / period;
+            maData.push({
+                x: data[i].x,
+                y: parseFloat(average.toFixed(2))
+            });
+        }
+        return maData;
     }
 
     createCharts() {
@@ -247,90 +305,144 @@ class FinancialDashboard {
         const summationCtx = document.getElementById('summationChart').getContext('2d');
         console.log('Summation chart context:', summationCtx);
         
+        // Set canvas size to ensure proper rendering
+        summationCtx.canvas.style.height = '300px';
+        
         this.charts.summation = new Chart(summationCtx, {
             type: 'line',
             data: {
-                datasets: [{
-                    label: 'McClellan Summation Index',
-                    data: [],
-                    borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4
-                }]
+                datasets: [
+                    {
+                        label: 'McClellan Summation Index',
+                        data: [],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1
+                    },
+                    {
+                        label: '10-Period MA',
+                        data: [],
+                        borderColor: '#ff9500',
+                        backgroundColor: 'rgba(255, 149, 0, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1
+                    }
+                ]
             },
-            options: this.getChartOptions('McClellan Summation Index')
+            options: this.getChartOptions('McClellan Summation Index', false, 'day')
         });
+        
+        // Force initial render
+        this.charts.summation.update();
         
         console.log('Summation chart created:', this.charts.summation);
 
         // McClellan Oscillator Chart
         const oscillatorCtx = document.getElementById('oscillatorChart').getContext('2d');
+        oscillatorCtx.canvas.style.height = '300px';
         this.charts.oscillator = new Chart(oscillatorCtx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 datasets: [{
                     label: 'McClellan Oscillator',
                     data: [],
-                    borderColor: '#ff6b6b',
-                    backgroundColor: 'rgba(255, 107, 107, 0.1)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4
+                    backgroundColor: [],
+                    borderColor: [],
+                    borderWidth: 1
                 }]
             },
-            options: this.getChartOptions('McClellan Oscillator', true)
+            options: this.getChartOptions('McClellan Oscillator', true, 'day')
         });
+        
+        // Force initial render
+        this.charts.oscillator.update();
         
         console.log('Oscillator chart created:', this.charts.oscillator);
 
         // Moving Averages Chart
         const maCtx = document.getElementById('movingAveragesChart').getContext('2d');
+        maCtx.canvas.style.height = '300px';
         this.charts.movingAverages = new Chart(maCtx, {
             type: 'line',
             data: {
                 datasets: [
                     {
-                        label: '20-day SMA',
+                        label: '5-day SMA',
                         data: [],
-                        borderColor: '#ff6b6b',
-                        backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                        borderColor: '#ff1744',
+                        backgroundColor: 'rgba(255, 23, 68, 0.1)',
                         borderWidth: 2,
                         fill: false,
-                        tension: 0.4
+                        tension: 0.1
+                    },
+                    {
+                        label: '10-day EMA',
+                        data: [],
+                        borderColor: '#9c27b0',
+                        backgroundColor: 'rgba(156, 39, 176, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1
+                    },
+                    {
+                        label: '21-day EMA',
+                        data: [],
+                        borderColor: '#2196f3',
+                        backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1
+                    },
+                    {
+                        label: '35-day SMA',
+                        data: [],
+                        borderColor: '#4caf50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1
                     },
                     {
                         label: '50-day SMA',
                         data: [],
-                        borderColor: '#4ecdc4',
-                        backgroundColor: 'rgba(78, 205, 196, 0.1)',
+                        borderColor: '#000000',
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
                         borderWidth: 2,
                         fill: false,
-                        tension: 0.4
+                        tension: 0.1
                     },
                     {
                         label: '200-day SMA',
                         data: [],
-                        borderColor: '#45b7d1',
-                        backgroundColor: 'rgba(69, 183, 209, 0.1)',
+                        borderColor: '#ffc107',
+                        backgroundColor: 'rgba(255, 193, 7, 0.1)',
                         borderWidth: 2,
                         fill: false,
-                        tension: 0.4
+                        tension: 0.1
                     }
                 ]
             },
-            options: this.getChartOptions('Percent of Stocks Above Moving Averages (%)')
+            options: this.getChartOptions('Percent of Stocks Above Moving Averages (%)', false, 'day', true)
         });
+        
+        // Force initial render
+        this.charts.movingAverages.update();
         
         console.log('Moving averages chart created:', this.charts.movingAverages);
         console.log('All charts created successfully');
     }
 
-    getChartOptions(title, showZeroLine = false) {
-        return {
+    getChartOptions(title, showZeroLine = false, timeUnit = 'day', showOverboughtOversold = false) {
+        const options = {
             responsive: true,
             maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
             plugins: {
                 legend: {
                     display: false
@@ -343,21 +455,30 @@ class FinancialDashboard {
                 x: {
                     type: 'time',
                     time: {
-                        unit: 'day',
+                        unit: timeUnit,
+                        stepSize: 1,
                         displayFormats: {
                             day: 'MMM dd',
+                            week: 'MMM dd',
                             month: 'MMM yyyy'
                         },
-                        tooltipFormat: 'MMM dd, yyyy'
+                        tooltipFormat: 'MMM dd, yyyy',
+                        parser: 'YYYY-MM-DD'
                     },
                     grid: {
                         color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        source: 'data',
+                        maxTicksLimit: 10
                     }
                 },
                 y: {
                     grid: {
                         color: 'rgba(0,0,0,0.1)'
-                    }
+                    },
+                    beginAtZero: false,
+                    display: true
                 }
             },
             elements: {
@@ -367,6 +488,56 @@ class FinancialDashboard {
                 }
             }
         };
+
+        // Add zero line for oscillator
+        if (showZeroLine) {
+            options.plugins.annotation = {
+                annotations: {
+                    zeroLine: {
+                        type: 'line',
+                        scaleID: 'y',
+                        value: 0,
+                        borderColor: '#333333',
+                        borderWidth: 1,
+                        borderDash: [5, 5]
+                    }
+                }
+            };
+        }
+
+        // Add overbought/oversold lines for MA chart
+        if (showOverboughtOversold) {
+            options.plugins.annotation = {
+                annotations: {
+                    overbought: {
+                        type: 'line',
+                        scaleID: 'y',
+                        value: 75,
+                        borderColor: '#ff0000',
+                        borderWidth: 2,
+                        label: {
+                            display: true,
+                            content: 'OB',
+                            position: 'end'
+                        }
+                    },
+                    oversold: {
+                        type: 'line',
+                        scaleID: 'y',
+                        value: 25,
+                        borderColor: '#00ff00',
+                        borderWidth: 2,
+                        label: {
+                            display: true,
+                            content: 'OS',
+                            position: 'end'
+                        }
+                    }
+                }
+            };
+        }
+
+        return options;
     }
 
     updateDisplay() {
@@ -380,10 +551,13 @@ class FinancialDashboard {
         this.updateChangeIndicator('summation-change', exchangeData.summationIndex.change);
         this.updateChangeIndicator('oscillator-change', exchangeData.oscillator.change);
         
-        // Update moving averages
-        document.getElementById('ma20-value').textContent = exchangeData.movingAverages.ma20.toFixed(1);
-        document.getElementById('ma50-value').textContent = exchangeData.movingAverages.ma50.toFixed(1);
-        document.getElementById('ma200-value').textContent = exchangeData.movingAverages.ma200.toFixed(1);
+        // Update all moving averages
+        document.getElementById('sma5-value').textContent = exchangeData.movingAverages.sma5.toFixed(1);
+        document.getElementById('ema10-value').textContent = exchangeData.movingAverages.ema10.toFixed(1);
+        document.getElementById('ma20-value').textContent = exchangeData.movingAverages.ema21.toFixed(1);
+        document.getElementById('sma35-value').textContent = exchangeData.movingAverages.sma35.toFixed(1);
+        document.getElementById('ma50-value').textContent = exchangeData.movingAverages.sma50.toFixed(1);
+        document.getElementById('ma200-value').textContent = exchangeData.movingAverages.sma200.toFixed(1);
         
         // Update statistics
         document.getElementById('advancing-stocks').textContent = exchangeData.stats.advancing;
@@ -406,21 +580,36 @@ class FinancialDashboard {
     updateCharts(exchangeData) {
         console.log('Updating charts with data:', exchangeData);
         
-        // Update Summation Index chart
-        console.log('Summation history data:', exchangeData.summationIndex.history);
-        this.charts.summation.data.datasets[0].data = exchangeData.summationIndex.history;
+        // Update Summation Index chart with 10-period MA
+        const summationHistory = exchangeData.summationIndex.history;
+        const summationMA = this.calculateMovingAverage(summationHistory, 10);
+        
+        this.charts.summation.data.datasets[0].data = summationHistory;
+        this.charts.summation.data.datasets[1].data = summationMA;
         this.charts.summation.update('none');
         
-        // Update Oscillator chart
-        console.log('Oscillator history data:', exchangeData.oscillator.history);
-        this.charts.oscillator.data.datasets[0].data = exchangeData.oscillator.history;
+        // Update Oscillator chart with colored bars
+        const oscillatorHistory = exchangeData.oscillator.history;
+        const colors = oscillatorHistory.map(point => 
+            point.y >= 0 ? '#4caf50' : '#f44336'  // Green for positive, red for negative
+        );
+        const borderColors = oscillatorHistory.map(point => 
+            point.y >= 0 ? '#388e3c' : '#d32f2f'  // Darker borders
+        );
+        
+        this.charts.oscillator.data.datasets[0].data = oscillatorHistory;
+        this.charts.oscillator.data.datasets[0].backgroundColor = colors;
+        this.charts.oscillator.data.datasets[0].borderColor = borderColors;
         this.charts.oscillator.update('none');
         
-        // Update Moving Averages chart
-        console.log('MA history data:', exchangeData.movingAverages.history);
-        this.charts.movingAverages.data.datasets[0].data = exchangeData.movingAverages.history.ma20;
-        this.charts.movingAverages.data.datasets[1].data = exchangeData.movingAverages.history.ma50;
-        this.charts.movingAverages.data.datasets[2].data = exchangeData.movingAverages.history.ma200;
+        // Update Moving Averages chart with all 6 lines
+        const maHistory = exchangeData.movingAverages.history;
+        this.charts.movingAverages.data.datasets[0].data = maHistory.sma5;
+        this.charts.movingAverages.data.datasets[1].data = maHistory.ema10;
+        this.charts.movingAverages.data.datasets[2].data = maHistory.ema21;
+        this.charts.movingAverages.data.datasets[3].data = maHistory.sma35;
+        this.charts.movingAverages.data.datasets[4].data = maHistory.sma50;
+        this.charts.movingAverages.data.datasets[5].data = maHistory.sma200;
         this.charts.movingAverages.update('none');
         
         console.log('Charts updated successfully');
@@ -465,6 +654,13 @@ class FinancialDashboard {
         // Always update timestamp
         this.updateLastUpdateTime();
     }
+}
+
+// Register Chart.js plugins
+if (typeof window.chartjs !== 'undefined' && window.chartjs.annotation) {
+    Chart.register(window.chartjs.annotation);
+} else if (typeof ChartjsPluginAnnotation !== 'undefined') {
+    Chart.register(ChartjsPluginAnnotation);
 }
 
 // Initialize dashboard when page loads
