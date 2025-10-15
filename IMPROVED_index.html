@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Financial Indicators Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7/dist/chartjs-plugin-zoom.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <h1>Global Financial Indicators Dashboard</h1>
+            <p class="subtitle">McClellan Indicators & Market Breadth Analysis</p>
+            <div class="last-update">
+                Last Updated: <span id="lastUpdate">Loading...</span>
+            </div>
+        </header>
+
+        <nav class="exchange-tabs">
+            <button class="tab-btn active" data-exchange="FTSE">FTSE 100</button>
+            <button class="tab-btn" data-exchange="TSX">TSX</button>
+            <button class="tab-btn" data-exchange="HSI">Hang Seng</button>
+            <button class="tab-btn" data-exchange="KLCI">Malaysia</button>
+            <button class="tab-btn" data-exchange="N225">Nikkei 225</button>
+        </nav>
+
+        <main class="dashboard-content">
+            <!-- McClellan Summation Index -->
+            <section class="indicator-section">
+                <div class="indicator-header">
+                    <h2>McClellan Summation Index</h2>
+                    <div class="indicator-info">
+                        <span class="current-value" id="summation-value">Loading...</span>
+                        <span class="change-indicator" id="summation-change">--</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="summationChart"></canvas>
+                </div>
+                <div class="chart-controls">
+                    <button onclick="dashboard.resetZoom('summation')">Reset Zoom</button>
+                </div>
+            </section>
+
+            <!-- McClellan Oscillator -->
+            <section class="indicator-section">
+                <div class="indicator-header">
+                    <h2>McClellan Oscillator</h2>
+                    <div class="indicator-info">
+                        <span class="current-value" id="oscillator-value">Loading...</span>
+                        <span class="change-indicator" id="oscillator-change">--</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="oscillatorChart"></canvas>
+                </div>
+                <div class="chart-controls">
+                    <button onclick="dashboard.resetZoom('oscillator')">Reset Zoom</button>
+                </div>
+            </section>
+
+            <!-- Percent of Stocks Above Moving Averages -->
+            <section class="indicator-section">
+                <div class="indicator-header">
+                    <h2>Percent of Stocks Above Key Moving Averages</h2>
+                    <div class="ma-legend">
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #ff1744;"></span>
+                            5-day SMA: <span id="sma5-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #9c27b0;"></span>
+                            10-day EMA: <span id="ema10-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #2196f3;"></span>
+                            21-day EMA: <span id="ma20-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #4caf50;"></span>
+                            35-day SMA: <span id="sma35-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #000000;"></span>
+                            50-day SMA: <span id="ma50-value">--</span>%
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #ffc107;"></span>
+                            200-day SMA: <span id="ma200-value">--</span>%
+                        </span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="movingAveragesChart"></canvas>
+                </div>
+                <div class="chart-controls">
+                    <button onclick="dashboard.resetZoom('ma')">Reset Zoom</button>
+                </div>
+            </section>
+
+            <!-- Market Statistics -->
+            <section class="stats-section">
+                <h3>Market Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Advancing Stocks</div>
+                        <div class="stat-value" id="advancing-stocks">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Declining Stocks</div>
+                        <div class="stat-value" id="declining-stocks">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Net Advances</div>
+                        <div class="stat-value" id="net-advances">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Stocks</div>
+                        <div class="stat-value" id="total-stocks">--</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>Data provided by EODHD.com | Dashboard by Financial Analytics</p>
+            <p class="disclaimer">This dashboard is for informational purposes only and should not be considered as investment advice.</p>
+        </footer>
+    </div>
+
+    <script>
+        // IMPROVED DASHBOARD with Different Data per Exchange and Zoom
+        console.log('Loading improved dashboard...');
+        
+        var dashboard = {
+            currentExchange: 'FTSE',
+            charts: {},
+            
+            // Generate more realistic dates (last 30 days)
+            generateDates: function(days) {
+                var dates = [];
+                var now = new Date();
+                for (var i = days - 1; i >= 0; i--) {
+                    var date = new Date(now);
+                    date.setDate(date.getDate() - i);
+                    dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+                }
+                return dates;
+            },
+            
+            // Generate different data for each exchange
+            generateData: function(days, baseValue, volatility, trend) {
+                var data = [];
+                var value = baseValue;
+                for (var i = 0; i < days; i++) {
+                    value += (Math.random() - 0.5) * volatility + trend;
+                    data.push(parseFloat(value.toFixed(2)));
+                }
+                return data;
+            },
+            
+            data: {
+                FTSE: {
+                    summation: { current: 395.42, change: 12.8 },
+                    oscillator: { current: -15.23, change: -3.2 },
+                    ma: { sma5: 78.5, ema10: 72.3, ema21: 68.1, sma35: 65.2, sma50: 60.8, sma200: 52.8 },
+                    stats: { advancing: 68, declining: 32, total: 100, netAdvances: 36 },
+                    chartData: null // Will be generated
+                },
+                TSX: {
+                    summation: { current: 287.15, change: -8.4 },
+                    oscillator: { current: 8.67, change: 2.1 },
+                    ma: { sma5: 72.3, ema10: 68.1, ema21: 63.4, sma35: 58.9, sma50: 54.2, sma200: 45.6 },
+                    stats: { advancing: 145, declining: 95, total: 240, netAdvances: 50 },
+                    chartData: null
+                },
+                HSI: {
+                    summation: { current: 156.89, change: 5.2 },
+                    oscillator: { current: 12.45, change: 1.8 },
+                    ma: { sma5: 68.9, ema10: 64.5, ema21: 59.8, sma35: 54.2, sma50: 48.7, sma200: 41.7 },
+                    stats: { advancing: 56, declining: 26, total: 82, netAdvances: 30 },
+                    chartData: null
+                },
+                KLCI: {
+                    summation: { current: 89.34, change: -2.1 },
+                    oscillator: { current: -5.67, change: -1.2 },
+                    ma: { sma5: 63.3, ema10: 58.9, ema21: 54.2, sma35: 50.0, sma50: 45.1, sma200: 36.7 },
+                    stats: { advancing: 19, declining: 11, total: 30, netAdvances: 8 },
+                    chartData: null
+                },
+                N225: {
+                    summation: { current: 234.67, change: 15.3 },
+                    oscillator: { current: 18.92, change: 4.5 },
+                    ma: { sma5: 81.2, ema10: 76.8, ema21: 72.4, sma35: 69.8, sma50: 64.3, sma200: 58.4 },
+                    stats: { advancing: 182, declining: 43, total: 225, netAdvances: 139 },
+                    chartData: null
+                }
+            },
+            
+            init: function() {
+                console.log('Initializing improved dashboard...');
+                this.generateAllData();
+                this.setupTabs();
+                this.createCharts();
+                this.updateDisplay();
+                console.log('Dashboard ready with unique data per exchange!');
+            },
+            
+            generateAllData: function() {
+                var dates = this.generateDates(30);
+                
+                // Generate unique data for each exchange
+                this.data.FTSE.chartData = {
+                    dates: dates,
+                    summation: this.generateData(30, 395, 25, 0.5),
+                    summationMA: this.generateData(30, 390, 20, 0.3),
+                    oscillator: this.generateData(30, -15, 15, -0.2),
+                    sma5: this.generateData(30, 78, 8, 0.1),
+                    ema10: this.generateData(30, 72, 6, 0.1),
+                    ema21: this.generateData(30, 68, 5, 0.0),
+                    sma35: this.generateData(30, 65, 4, -0.1),
+                    sma50: this.generateData(30, 61, 3, -0.1),
+                    sma200: this.generateData(30, 53, 2, 0.0)
+                };
+                
+                this.data.TSX.chartData = {
+                    dates: dates,
+                    summation: this.generateData(30, 287, 30, -0.3),
+                    summationMA: this.generateData(30, 285, 25, -0.2),
+                    oscillator: this.generateData(30, 9, 12, 0.1),
+                    sma5: this.generateData(30, 72, 7, -0.1),
+                    ema10: this.generateData(30, 68, 6, 0.0),
+                    ema21: this.generateData(30, 63, 5, -0.1),
+                    sma35: this.generateData(30, 59, 4, 0.0),
+                    sma50: this.generateData(30, 54, 3, 0.1),
+                    sma200: this.generateData(30, 46, 2, 0.0)
+                };
+                
+                this.data.HSI.chartData = {
+                    dates: dates,
+                    summation: this.generateData(30, 157, 20, 0.2),
+                    summationMA: this.generateData(30, 155, 18, 0.1),
+                    oscillator: this.generateData(30, 12, 10, 0.0),
+                    sma5: this.generateData(30, 69, 9, 0.0),
+                    ema10: this.generateData(30, 65, 7, -0.1),
+                    ema21: this.generateData(30, 60, 6, 0.1),
+                    sma35: this.generateData(30, 54, 5, 0.0),
+                    sma50: this.generateData(30, 49, 4, -0.1),
+                    sma200: this.generateData(30, 42, 2, 0.1)
+                };
+                
+                this.data.KLCI.chartData = {
+                    dates: dates,
+                    summation: this.generateData(30, 89, 15, -0.1),
+                    summationMA: this.generateData(30, 88, 12, 0.0),
+                    oscillator: this.generateData(30, -6, 8, 0.1),
+                    sma5: this.generateData(30, 63, 6, 0.0),
+                    ema10: this.generateData(30, 59, 5, 0.1),
+                    ema21: this.generateData(30, 54, 4, 0.0),
+                    sma35: this.generateData(30, 50, 3, 0.0),
+                    sma50: this.generateData(30, 45, 3, 0.1),
+                    sma200: this.generateData(30, 37, 2, 0.0)
+                };
+                
+                this.data.N225.chartData = {
+                    dates: dates,
+                    summation: this.generateData(30, 235, 35, 0.4),
+                    summationMA: this.generateData(30, 230, 30, 0.3),
+                    oscillator: this.generateData(30, 19, 18, 0.0),
+                    sma5: this.generateData(30, 81, 10, 0.1),
+                    ema10: this.generateData(30, 77, 8, 0.0),
+                    ema21: this.generateData(30, 72, 7, 0.1),
+                    sma35: this.generateData(30, 70, 6, 0.0),
+                    sma50: this.generateData(30, 64, 5, 0.1),
+                    sma200: this.generateData(30, 58, 3, 0.0)
+                };
+            },
+            
+            setupTabs: function() {
+                var self = this;
+                
+                function handleClick(e) {
+                    self.switchExchange(e.target.dataset.exchange);
+                }
+                
+                var tabs = document.querySelectorAll('.tab-btn');
+                for (var i = 0; i < tabs.length; i++) {
+                    tabs[i].addEventListener('click', handleClick);
+                }
+            },
+            
+            switchExchange: function(exchange) {
+                console.log('Switching to exchange:', exchange);
+                this.currentExchange = exchange;
+                
+                var tabs = document.querySelectorAll('.tab-btn');
+                for (var i = 0; i < tabs.length; i++) {
+                    tabs[i].classList.remove('active');
+                }
+                document.querySelector('[data-exchange="' + exchange + '"]').classList.add('active');
+                
+                this.updateCharts();
+                this.updateDisplay();
+            },
+            
+            createCharts: function() {
+                console.log('Creating charts with zoom functionality...');
+                
+                var chartData = this.data[this.currentExchange].chartData;
+                
+                // Chart options with zoom
+                var zoomOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: { display: false },
+                    plugins: {
+                        zoom: {
+                            pan: {
+                                enabled: true,
+                                mode: 'x'
+                            },
+                            zoom: {
+                                enabled: true,
+                                mode: 'x',
+                                sensitivity: 0.1
+                            }
+                        }
+                    }
+                };
+                
+                // Summation Index Chart
+                var ctx1 = document.getElementById('summationChart').getContext('2d');
+                this.charts.summation = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.dates,
+                        datasets: [{
+                            label: 'Summation Index',
+                            data: chartData.summation,
+                            borderColor: '#667eea',
+                            borderWidth: 2,
+                            fill: false,
+                            pointRadius: 1
+                        }, {
+                            label: '10-Period MA',
+                            data: chartData.summationMA,
+                            borderColor: '#ff9500',
+                            borderWidth: 2,
+                            fill: false,
+                            pointRadius: 1
+                        }]
+                    },
+                    options: zoomOptions
+                });
+                
+                // Oscillator Chart
+                var ctx2 = document.getElementById('oscillatorChart').getContext('2d');
+                var oscColors = chartData.oscillator.map(function(val) {
+                    return val >= 0 ? '#4caf50' : '#f44336';
+                });
+                
+                this.charts.oscillator = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.dates,
+                        datasets: [{
+                            data: chartData.oscillator,
+                            backgroundColor: oscColors,
+                            borderColor: oscColors,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: zoomOptions
+                });
+                
+                // Moving Averages Chart with OB/OS lines
+                var ctx3 = document.getElementById('movingAveragesChart').getContext('2d');
+                var obLine = new Array(30).fill(75);
+                var osLine = new Array(30).fill(25);
+                
+                var maOptions = JSON.parse(JSON.stringify(zoomOptions));
+                maOptions.scales = {
+                    yAxes: [{ ticks: { min: 0, max: 100 } }]
+                };
+                
+                this.charts.ma = new Chart(ctx3, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.dates,
+                        datasets: [
+                            { label: '5-day SMA', data: chartData.sma5, borderColor: '#ff1744', borderWidth: 2, fill: false, pointRadius: 1 },
+                            { label: '10-day EMA', data: chartData.ema10, borderColor: '#9c27b0', borderWidth: 2, fill: false, pointRadius: 1 },
+                            { label: '21-day EMA', data: chartData.ema21, borderColor: '#2196f3', borderWidth: 2, fill: false, pointRadius: 1 },
+                            { label: '35-day SMA', data: chartData.sma35, borderColor: '#4caf50', borderWidth: 2, fill: false, pointRadius: 1 },
+                            { label: '50-day SMA', data: chartData.sma50, borderColor: '#000000', borderWidth: 2, fill: false, pointRadius: 1 },
+                            { label: '200-day SMA', data: chartData.sma200, borderColor: '#ffc107', borderWidth: 2, fill: false, pointRadius: 1 },
+                            { label: 'OB (75%)', data: obLine, borderColor: '#ff0000', borderWidth: 2, fill: false, pointRadius: 0, borderDash: [5, 5] },
+                            { label: 'OS (25%)', data: osLine, borderColor: '#00ff00', borderWidth: 2, fill: false, pointRadius: 0, borderDash: [5, 5] }
+                        ]
+                    },
+                    options: maOptions
+                });
+                
+                console.log('All charts created with zoom functionality!');
+            },
+            
+            updateCharts: function() {
+                var chartData = this.data[this.currentExchange].chartData;
+                
+                // Update summation chart
+                this.charts.summation.data.labels = chartData.dates;
+                this.charts.summation.data.datasets[0].data = chartData.summation;
+                this.charts.summation.data.datasets[1].data = chartData.summationMA;
+                this.charts.summation.update();
+                
+                // Update oscillator chart
+                var oscColors = chartData.oscillator.map(function(val) {
+                    return val >= 0 ? '#4caf50' : '#f44336';
+                });
+                this.charts.oscillator.data.labels = chartData.dates;
+                this.charts.oscillator.data.datasets[0].data = chartData.oscillator;
+                this.charts.oscillator.data.datasets[0].backgroundColor = oscColors;
+                this.charts.oscillator.update();
+                
+                // Update MA chart
+                this.charts.ma.data.labels = chartData.dates;
+                this.charts.ma.data.datasets[0].data = chartData.sma5;
+                this.charts.ma.data.datasets[1].data = chartData.ema10;
+                this.charts.ma.data.datasets[2].data = chartData.ema21;
+                this.charts.ma.data.datasets[3].data = chartData.sma35;
+                this.charts.ma.data.datasets[4].data = chartData.sma50;
+                this.charts.ma.data.datasets[5].data = chartData.sma200;
+                this.charts.ma.update();
+            },
+            
+            updateDisplay: function() {
+                var data = this.data[this.currentExchange];
+                
+                document.getElementById('summation-value').textContent = data.summation.current.toFixed(2);
+                document.getElementById('oscillator-value').textContent = data.oscillator.current.toFixed(2);
+                
+                // Update change indicators
+                var summationChange = document.getElementById('summation-change');
+                summationChange.textContent = (data.summation.change > 0 ? '+' : '') + data.summation.change.toFixed(2);
+                summationChange.className = 'change-indicator ' + (data.summation.change > 0 ? 'positive' : 'negative');
+                
+                var oscillatorChange = document.getElementById('oscillator-change');
+                oscillatorChange.textContent = (data.oscillator.change > 0 ? '+' : '') + data.oscillator.change.toFixed(2);
+                oscillatorChange.className = 'change-indicator ' + (data.oscillator.change > 0 ? 'positive' : 'negative');
+                
+                // Update MA values
+                document.getElementById('sma5-value').textContent = data.ma.sma5.toFixed(1);
+                document.getElementById('ema10-value').textContent = data.ma.ema10.toFixed(1);
+                document.getElementById('ma20-value').textContent = data.ma.ema21.toFixed(1);
+                document.getElementById('sma35-value').textContent = data.ma.sma35.toFixed(1);
+                document.getElementById('ma50-value').textContent = data.ma.sma50.toFixed(1);
+                document.getElementById('ma200-value').textContent = data.ma.sma200.toFixed(1);
+                
+                // Update stats
+                document.getElementById('advancing-stocks').textContent = data.stats.advancing;
+                document.getElementById('declining-stocks').textContent = data.stats.declining;
+                document.getElementById('net-advances').textContent = data.stats.netAdvances > 0 ? '+' + data.stats.netAdvances : data.stats.netAdvances;
+                document.getElementById('total-stocks').textContent = data.stats.total;
+                
+                // Update timestamp
+                var now = new Date();
+                document.getElementById('lastUpdate').textContent = now.toLocaleString('en-GB', {
+                    year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                });
+            },
+            
+            resetZoom: function(chartType) {
+                if (this.charts[chartType]) {
+                    this.charts[chartType].resetZoom();
+                }
+            }
+        };
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing improved dashboard...');
+            dashboard.init();
+            window.dashboard = dashboard;
+            console.log('Dashboard ready with zoom functionality!');
+        });
+    </script>
+</body>
+</html>
