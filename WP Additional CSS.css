@@ -1,0 +1,544 @@
+/*
+ * Richard Gott / Sounding Board - Kadence frontend CSS
+ *
+ * Paste this into Appearance > Customize > Additional CSS.
+ * The selectors are deliberately scoped to body:not(.wp-admin) and rg-wp-*
+ * classes so WordPress dashboard/admin menu colours are left alone.
+ */
+
+body:not(.wp-admin) {
+    --rg-dark-teal: #123f54;
+    --rg-green: #45d69d;
+    --rg-white: #f3fffe;
+    --rg-orange: #ff6900;
+    --rg-card-text: #333333;
+    --rg-muted-text: #666666;
+    --rg-card-bg: rgba(255, 255, 255, 0.95);
+}
+
+/* If a snippets plugin accidentally outputs the header in wp-admin, keep it hidden. */
+body.wp-admin .rg-wp-site-header {
+    display: none !important;
+}
+
+/* Frontend page background */
+body:not(.wp-admin),
+body:not(.wp-admin) .site,
+body:not(.wp-admin) .wp-site-blocks {
+    background-color: var(--rg-dark-teal);
+    color: var(--rg-white);
+}
+
+body:not(.wp-admin) .site,
+body:not(.wp-admin) .wp-site-blocks {
+    min-height: 100vh;
+}
+
+/* Custom site header injected by the companion snippet */
+body:not(.wp-admin) .rg-wp-site-header,
+body:not(.wp-admin) .rg-wp-site-header * {
+    box-sizing: border-box;
+}
+
+body:not(.wp-admin) .rg-wp-site-header {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    background: rgba(18, 63, 84, 0.95);
+    color: var(--rg-white);
+}
+
+body:not(.wp-admin) .rg-wp-site-title {
+    margin: 0 0 0.5rem;
+    color: var(--rg-white);
+    font-family: Arial, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+body:not(.wp-admin) .rg-wp-contact-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+body:not(.wp-admin) .rg-wp-location-phone {
+    color: var(--rg-white) !important;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+body:not(.wp-admin) .rg-wp-phone-link {
+    color: var(--rg-green) !important;
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+body:not(.wp-admin) .rg-wp-phone-link:hover {
+    color: var(--rg-white) !important;
+}
+
+body:not(.wp-admin) .rg-wp-social-icons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+body:not(.wp-admin) .rg-wp-social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    background: var(--rg-white);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+body:not(.wp-admin) .rg-wp-social-icon:hover {
+    background: var(--rg-green);
+    transform: translateY(-2px);
+}
+
+body:not(.wp-admin) .rg-wp-social-icon img,
+body:not(.wp-admin) .rg-wp-social-icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+body:not(.wp-admin) .rg-wp-main-nav {
+    position: relative;
+    border-top: 1px solid rgba(243, 255, 254, 0.2);
+    padding-top: 1rem;
+}
+
+body:not(.wp-admin) .rg-wp-nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+body:not(.wp-admin) .rg-wp-nav-links li {
+    position: relative;
+    margin: 0;
+}
+
+body:not(.wp-admin) .rg-wp-nav-links li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 1px;
+    height: 20px;
+    background: var(--rg-green);
+    transform: translateY(-50%);
+}
+
+body:not(.wp-admin) .rg-wp-nav-links a {
+    display: block;
+    padding: 0.5rem 2rem;
+    color: var(--rg-white) !important;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+body:not(.wp-admin) .rg-wp-nav-links a:hover {
+    color: var(--rg-orange) !important;
+}
+
+body:not(.wp-admin) .rg-wp-nav-links a[aria-current="page"],
+body:not(.wp-admin) .rg-wp-nav-links a.rg-wp-active {
+    color: var(--rg-green) !important;
+}
+
+body:not(.wp-admin) .rg-wp-mobile-menu-toggle {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    z-index: 1001;
+    padding: 0.5rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+body:not(.wp-admin) .rg-wp-mobile-menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 3px 0;
+    background: var(--rg-white);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+body:not(.wp-admin) .rg-wp-mobile-menu-toggle.rg-wp-is-active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+body:not(.wp-admin) .rg-wp-mobile-menu-toggle.rg-wp-is-active span:nth-child(2) {
+    opacity: 0;
+}
+
+body:not(.wp-admin) .rg-wp-mobile-menu-toggle.rg-wp-is-active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Blog/archive heading treatment */
+body:not(.wp-admin).blog .page-title,
+body:not(.wp-admin).archive .page-title,
+body:not(.wp-admin).single-post .entry-title,
+body:not(.wp-admin) .entry-hero .entry-title {
+    color: var(--rg-white);
+    font-family: Arial, sans-serif;
+}
+
+body:not(.wp-admin).blog .page-title,
+body:not(.wp-admin).archive .page-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* Blog archive grid and rounded post cards */
+body:not(.wp-admin).blog .post-archive.grid-cols,
+body:not(.wp-admin).archive .post-archive.grid-cols,
+body:not(.wp-admin) .kadence-posts.grid-cols {
+    display: grid;
+    gap: 2rem;
+}
+
+@media (min-width: 1025px) {
+    body:not(.wp-admin).blog .post-archive.grid-cols,
+    body:not(.wp-admin).archive .post-archive.grid-cols,
+    body:not(.wp-admin) .kadence-posts.grid-cols {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+body:not(.wp-admin) .loop-entry,
+body:not(.wp-admin) .entry.loop-entry,
+body:not(.wp-admin) .wp-block-post,
+body:not(.wp-admin) .kadence-posts .entry {
+    overflow: hidden;
+    border-radius: 8px !important;
+    background: var(--rg-card-bg) !important;
+    color: var(--rg-card-text);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+body:not(.wp-admin) .loop-entry:hover,
+body:not(.wp-admin) .wp-block-post:hover,
+body:not(.wp-admin) .kadence-posts .entry:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+body:not(.wp-admin) .loop-entry .entry-content-wrap,
+body:not(.wp-admin) .kadence-posts .entry-content-wrap,
+body:not(.wp-admin) .wp-block-post .wp-block-post-excerpt {
+    color: var(--rg-card-text);
+}
+
+body:not(.wp-admin) .loop-entry .entry-title,
+body:not(.wp-admin) .loop-entry .entry-title a,
+body:not(.wp-admin) .wp-block-post-title,
+body:not(.wp-admin) .wp-block-post-title a {
+    color: var(--rg-card-text) !important;
+}
+
+body:not(.wp-admin) .loop-entry .entry-title a:hover,
+body:not(.wp-admin) .wp-block-post-title a:hover {
+    color: var(--rg-orange) !important;
+}
+
+body:not(.wp-admin) .entry-meta,
+body:not(.wp-admin) .entry-summary,
+body:not(.wp-admin) .entry-summary p,
+body:not(.wp-admin) .wp-block-post-date,
+body:not(.wp-admin) .wp-block-post-excerpt {
+    color: var(--rg-muted-text);
+}
+
+/* Single-post content: dark readable text on the white article area */
+body:not(.wp-admin).single-post .entry-content,
+body:not(.wp-admin).single-post .single-content {
+    border-radius: 8px;
+    background: var(--rg-card-bg);
+    color: var(--rg-card-text);
+}
+
+body:not(.wp-admin).single-post .entry-content {
+    padding: clamp(1.25rem, 4vw, 2rem);
+}
+
+body:not(.wp-admin) .entry-content p,
+body:not(.wp-admin) .entry-content li,
+body:not(.wp-admin) .entry-content blockquote,
+body:not(.wp-admin) .entry-content figcaption,
+body:not(.wp-admin) .single-content p,
+body:not(.wp-admin) .single-content li {
+    color: var(--rg-card-text);
+}
+
+body:not(.wp-admin) .entry-content a,
+body:not(.wp-admin) .single-content a {
+    color: #0b7c5a;
+}
+
+body:not(.wp-admin) .entry-content a:hover,
+body:not(.wp-admin) .single-content a:hover {
+    color: var(--rg-orange);
+}
+
+/* Category links as green rounded badges, including future categories */
+body:not(.wp-admin) .entry-taxonomies a,
+body:not(.wp-admin) .cat-links a,
+body:not(.wp-admin) .posted-in a,
+body:not(.wp-admin) .taxonomy-category a,
+body:not(.wp-admin) a[rel="category tag"] {
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    margin: 0.15rem 0.25rem 0.15rem 0;
+    padding: 0.2rem 0.8rem;
+    border-radius: 999px;
+    background: var(--rg-green) !important;
+    color: #ffffff !important;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+body:not(.wp-admin) .entry-taxonomies a:hover,
+body:not(.wp-admin) .cat-links a:hover,
+body:not(.wp-admin) .posted-in a:hover,
+body:not(.wp-admin) .taxonomy-category a:hover,
+body:not(.wp-admin) a[rel="category tag"]:hover {
+    background: var(--rg-orange) !important;
+    color: #ffffff !important;
+}
+
+/* Previous/Next post navigation and comments on teal background */
+body:not(.wp-admin) .post-navigation,
+body:not(.wp-admin) .post-navigation .nav-links,
+body:not(.wp-admin) .post-navigation .nav-previous,
+body:not(.wp-admin) .post-navigation .nav-next,
+body:not(.wp-admin) .post-navigation .nav-subtitle,
+body:not(.wp-admin) .post-navigation .nav-title,
+body:not(.wp-admin) .post-navigation a,
+body:not(.wp-admin) .comments-area,
+body:not(.wp-admin) .comments-title,
+body:not(.wp-admin) .comment-reply-title {
+    color: var(--rg-white) !important;
+}
+
+body:not(.wp-admin) .post-navigation a:hover {
+    color: var(--rg-orange) !important;
+}
+
+body:not(.wp-admin) .comment-form label,
+body:not(.wp-admin) .logged-in-as,
+body:not(.wp-admin) .comment-notes {
+    color: var(--rg-white);
+}
+
+body:not(.wp-admin) .comment-form input[type="text"],
+body:not(.wp-admin) .comment-form input[type="email"],
+body:not(.wp-admin) .comment-form input[type="url"],
+body:not(.wp-admin) .comment-form textarea,
+body:not(.wp-admin) .search-form input[type="search"],
+body:not(.wp-admin) .wp-block-search__input {
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+    background: var(--rg-card-bg);
+    color: var(--rg-dark-teal);
+}
+
+body:not(.wp-admin) .comment-form input[type="submit"],
+body:not(.wp-admin) .wp-block-search__button,
+body:not(.wp-admin) .search-form .search-submit {
+    border: 2px solid var(--rg-green);
+    border-radius: 5px;
+    background: var(--rg-dark-teal);
+    color: var(--rg-green);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+body:not(.wp-admin) .comment-form input[type="submit"]:hover,
+body:not(.wp-admin) .wp-block-search__button:hover,
+body:not(.wp-admin) .search-form .search-submit:hover {
+    background: var(--rg-green);
+    color: var(--rg-dark-teal);
+}
+
+/*
+ * Optional Blog tools bar:
+ * Add a Kadence Row Layout, Hooked Element, or block group above the post loop
+ * with the Additional CSS class "rg-blog-tools", then place a Categories List
+ * block and Search block inside it.
+ */
+body:not(.wp-admin) .rg-blog-tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    background: var(--rg-card-bg);
+    color: var(--rg-muted-text);
+}
+
+body:not(.wp-admin) .rg-blog-tools .wp-block-categories-list,
+body:not(.wp-admin) .rg-blog-tools .wp-block-page-list,
+body:not(.wp-admin) .rg-blog-tools ul {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+body:not(.wp-admin) .rg-blog-tools a {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    background: transparent !important;
+    color: var(--rg-muted-text) !important;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.5;
+    text-decoration: none;
+    text-transform: none;
+}
+
+body:not(.wp-admin) .rg-blog-tools a:hover,
+body:not(.wp-admin) .rg-blog-tools .current-cat > a,
+body:not(.wp-admin) .rg-blog-tools .current-menu-item > a {
+    color: var(--rg-green) !important;
+    font-weight: 700;
+}
+
+body:not(.wp-admin) .rg-blog-tools .wp-block-search,
+body:not(.wp-admin) .rg-blog-tools .search-form {
+    width: min(100%, 250px);
+    margin: 0;
+}
+
+body:not(.wp-admin) .rg-blog-tools .wp-block-search__inside-wrapper,
+body:not(.wp-admin) .rg-blog-tools .search-form {
+    position: relative;
+}
+
+body:not(.wp-admin) .rg-blog-tools .wp-block-search__input,
+body:not(.wp-admin) .rg-blog-tools .search-field {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+    body:not(.wp-admin) .rg-wp-site-header {
+        position: relative;
+        padding: 1rem;
+    }
+
+    body:not(.wp-admin) .rg-wp-site-title {
+        font-size: 1.5rem;
+    }
+
+    body:not(.wp-admin) .rg-wp-contact-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    body:not(.wp-admin) .rg-wp-mobile-menu-toggle {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body:not(.wp-admin) .rg-wp-nav-links {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        background: rgba(18, 63, 84, 0.98);
+        backdrop-filter: blur(10px);
+    }
+
+    body:not(.wp-admin) .rg-wp-nav-links.rg-wp-mobile-active {
+        display: flex;
+    }
+
+    body:not(.wp-admin) .rg-wp-nav-links li:not(:last-child)::after {
+        display: none;
+    }
+
+    body:not(.wp-admin) .rg-wp-nav-links a {
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+
+    body:not(.wp-admin) .rg-blog-tools {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    body:not(.wp-admin) .rg-blog-tools .wp-block-categories-list,
+    body:not(.wp-admin) .rg-blog-tools .wp-block-page-list,
+    body:not(.wp-admin) .rg-blog-tools ul {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    body:not(.wp-admin) .rg-blog-tools .wp-block-search,
+    body:not(.wp-admin) .rg-blog-tools .search-form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body:not(.wp-admin) .rg-wp-site-title {
+        font-size: 1.2rem;
+    }
+
+    body:not(.wp-admin).blog .page-title,
+    body:not(.wp-admin).archive .page-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+}
