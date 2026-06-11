@@ -14,6 +14,7 @@ body:not(.wp-admin) {
     --rg-card-text: #333333;
     --rg-muted-text: #666666;
     --rg-card-bg: rgba(255, 255, 255, 0.95);
+    --rg-compact-blog-width: 900px;
 }
 
 /* If a snippets plugin accidentally outputs the header in wp-admin, keep it hidden. */
@@ -202,6 +203,57 @@ body:not(.wp-admin) .rg-wp-mobile-menu-toggle.rg-wp-is-active span:nth-child(3) 
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
+/* Original static-blog intro restored below the custom header */
+body:not(.wp-admin) .rg-wp-blog-intro {
+    max-width: 840px;
+    margin: 3rem auto 2.25rem;
+    padding: 0 20px;
+    text-align: center;
+}
+
+body:not(.wp-admin) .rg-wp-blog-intro-title {
+    margin: 0 0 1rem;
+    font-family: Arial, sans-serif;
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 3px;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+body:not(.wp-admin) .rg-wp-blog-intro-title .rg-wp-green-text {
+    color: var(--rg-green);
+}
+
+body:not(.wp-admin) .rg-wp-blog-intro-title .rg-wp-white-text {
+    color: var(--rg-white);
+}
+
+body:not(.wp-admin) .rg-wp-blog-intro-description {
+    margin: 0;
+    color: var(--rg-white);
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+/*
+ * Hide Kadence's generated blog title band, which appears as a black title on
+ * a white strip in the screenshot. The custom rg-wp-blog-intro replaces it.
+ */
+body:not(.wp-admin).blog .entry-hero-container-inner,
+body:not(.wp-admin).blog .entry-hero,
+body:not(.wp-admin).blog .page-header,
+body:not(.wp-admin).home.blog .entry-hero-container-inner,
+body:not(.wp-admin).home.blog .entry-hero,
+body:not(.wp-admin).home.blog .page-header,
+body:not(.wp-admin).archive .entry-hero-container-inner,
+body:not(.wp-admin).archive .entry-hero,
+body:not(.wp-admin).archive .page-header {
+    display: none !important;
+}
+
 /* Blog/archive heading treatment */
 body:not(.wp-admin).blog .page-title,
 body:not(.wp-admin).archive .page-title,
@@ -221,11 +273,23 @@ body:not(.wp-admin).archive .page-title {
 }
 
 /* Blog archive grid and rounded post cards */
+body:not(.wp-admin).blog .content-container,
+body:not(.wp-admin).home.blog .content-container,
+body:not(.wp-admin).archive .content-container,
+body:not(.wp-admin).blog #primary,
+body:not(.wp-admin).home.blog #primary,
+body:not(.wp-admin).archive #primary {
+    max-width: var(--rg-compact-blog-width);
+}
+
 body:not(.wp-admin).blog .post-archive.grid-cols,
 body:not(.wp-admin).archive .post-archive.grid-cols,
 body:not(.wp-admin) .kadence-posts.grid-cols {
     display: grid;
-    gap: 2rem;
+    gap: 1.35rem;
+    max-width: var(--rg-compact-blog-width);
+    margin-right: auto;
+    margin-left: auto;
 }
 
 @media (min-width: 1025px) {
@@ -254,9 +318,27 @@ body:not(.wp-admin) .kadence-posts .entry:hover {
     transform: translateY(-5px);
 }
 
+body:not(.wp-admin) .loop-entry .post-thumbnail,
+body:not(.wp-admin) .loop-entry .entry-attachment,
+body:not(.wp-admin) .wp-block-post-featured-image,
+body:not(.wp-admin) .kadence-posts .post-thumbnail {
+    height: 150px;
+    overflow: hidden;
+}
+
+body:not(.wp-admin) .loop-entry .post-thumbnail img,
+body:not(.wp-admin) .loop-entry .entry-attachment img,
+body:not(.wp-admin) .wp-block-post-featured-image img,
+body:not(.wp-admin) .kadence-posts .post-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 body:not(.wp-admin) .loop-entry .entry-content-wrap,
 body:not(.wp-admin) .kadence-posts .entry-content-wrap,
 body:not(.wp-admin) .wp-block-post .wp-block-post-excerpt {
+    padding: 1rem !important;
     color: var(--rg-card-text);
 }
 
@@ -265,6 +347,8 @@ body:not(.wp-admin) .loop-entry .entry-title a,
 body:not(.wp-admin) .wp-block-post-title,
 body:not(.wp-admin) .wp-block-post-title a {
     color: var(--rg-card-text) !important;
+    font-size: 1.15rem;
+    line-height: 1.25;
 }
 
 body:not(.wp-admin) .loop-entry .entry-title a:hover,
@@ -277,7 +361,13 @@ body:not(.wp-admin) .entry-summary,
 body:not(.wp-admin) .entry-summary p,
 body:not(.wp-admin) .wp-block-post-date,
 body:not(.wp-admin) .wp-block-post-excerpt {
+    font-size: 0.82rem;
     color: var(--rg-muted-text);
+}
+
+body:not(.wp-admin) .entry-summary p,
+body:not(.wp-admin) .wp-block-post-excerpt__excerpt {
+    margin-bottom: 0.75rem;
 }
 
 /* Single-post content: dark readable text on the white article area */
@@ -512,6 +602,15 @@ body:not(.wp-admin) .rg-blog-tools .search-field {
         font-size: 1.2rem;
     }
 
+    body:not(.wp-admin) .rg-wp-blog-intro {
+        margin: 2rem auto 1.5rem;
+    }
+
+    body:not(.wp-admin) .rg-wp-blog-intro-title {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
     body:not(.wp-admin) .rg-blog-tools {
         align-items: stretch;
         flex-direction: column;
@@ -540,5 +639,9 @@ body:not(.wp-admin) .rg-blog-tools .search-field {
     body:not(.wp-admin).archive .page-title {
         font-size: 2rem;
         letter-spacing: 2px;
+    }
+
+    body:not(.wp-admin) .rg-wp-blog-intro-title {
+        font-size: 2rem;
     }
 }
