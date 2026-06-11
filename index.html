@@ -1,562 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Richard Gott Sound Recordist",
+  "image": "https://richardgott.co.uk/assets/images/profile-photo.png",
+  "description": "Freelance location sound recordist serving Cardiff, West Wales, Swansea, and Pembrokeshire.",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Cardiff"
+    },
+    {
+      "@type": "City",
+      "name": "Swansea"
+    },
+    {
+      "@type": "Region",
+      "name": "Pembrokeshire"
+    },
+    {
+      "@type": "Region",
+      "name": "West Wales"
+    }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "Wales",
+    "addressCountry": "UK"
+  },
+  "url": "https://richardgott.co.uk"
+}
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richard Gott | Sound recordist | Wales</title>
+    <title>Richard Gott | Sound Recordist Cardiff & West Wales | Location Audio</title>
     <meta name="description" content="Freelance location sound recordist in Cardiff and West Wales with 20+ years experience. TV, documentary, corporate productions across South and West Wales.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.5;
-            color: #f3fffe;
-            background-color: #123f54;
-            font-size: 14px;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            background-image: url('assets/images/Richard-Gott-soundcart.jpg');
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Main Container */
-        .main-container {
-            min-height: 100vh;
-            background: linear-gradient(rgba(18, 63, 84, 0.9), rgba(18, 63, 84, 0.95));
-        }
-
-        /* Header Styles */
-        .site-header {
-            text-align: center;
-            padding: 2rem 1rem 1rem;
-            background: rgba(18, 63, 84, 0.95);
-        }
-
-        .site-title {
-            font-family: Arial, sans-serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: #f3fffe;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-
-        .contact-header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .location-phone {
-            font-family: Arial, sans-serif;
-            font-size: 1rem;
-            color: #f3fffe;
-            font-weight: normal;
-        }
-
-        .phone-link {
-            color: #45d69d;
-            text-decoration: underline;
-            font-weight: normal;
-        }
-
-        .phone-link:hover {
-            text-decoration: underline;
-            opacity: 0.8;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            background: #f3fffe;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: all 0.3s;
-            padding: 6px;
-        }
-
-        .social-icon:hover {
-            background: #45d69d;
-            transform: translateY(-2px);
-        }
-
-        .social-icon img {
-            width: 20px;
-            height: 20px;
-            display: block;
-        }
-
-        /* Navigation */
-        .main-nav {
-            border-top: 1px solid rgba(243, 255, 254, 0.2);
-            padding-top: 1rem;
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            gap: 0;
-            flex-wrap: wrap;
-        }
-
-        .nav-links li {
-            position: relative;
-        }
-
-        .nav-links li:not(:last-child):after {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 20px;
-            background: #45d69d;
-        }
-
-        .nav-links a {
-            font-family: Arial, sans-serif;
-            color: #f3fffe;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 0.5rem 2rem;
-            transition: color 0.3s;
-            display: block;
-        }
-
-        .nav-links a:hover {
-            color: #ff6900;
-        }
-
-        .nav-links a.active {
-            color: #45d69d;
-        }
-
-        .nav-links a.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 0.5rem;
-            background: none;
-            border: none;
-            z-index: 1001;
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .mobile-menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: #f3fffe;
-            margin: 3px 0;
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-
-        /* Main Content Layout */
-        .main-content {
-            padding: 2rem 1rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .three-column-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        /* Column Headers */
-        .column-header h2 {
-            font-family: Arial, sans-serif;
-            font-size: 2.2rem;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 2rem;
-            line-height: 1.1;
-            letter-spacing: 2px;
-        }
-
-        .column-header h2 .green-text {
-            color: #45d69d;
-        }
-
-        .column-header h2 .white-text {
-            color: #f3fffe;
-        }
-
-        /* About Column */
-        .about-column {
-            padding: 0 1rem;
-        }
-
-        .profile-section {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .profile-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            overflow: hidden;
-            border: 3px solid #45d69d;
-        }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .talent-manager-link {
-            display: inline-block;
-            color: #45d69d;
-            text-decoration: underline;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            transition: color 0.3s;
-        }
-
-        .talent-manager-link:hover {
-            color: #f3fffe;
-        }
-
-        .mobile-note {
-            font-size: 0.8rem;
-            color: #f3fffe;
-            opacity: 0.8;
-            font-style: italic;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-text {
-            font-family: Arial, sans-serif;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #f3fffe;
-            font-weight: normal;
-        }
-
-        .about-text p {
-            margin-bottom: 1.2rem;
-            font-weight: normal;
-        }
-
-        .about-text a {
-            color: #45d69d;
-            text-decoration: none;
-        }
-
-        .about-text a:hover {
-            text-decoration: underline;
-        }
-
-        /* Diary Column */
-        .diary-column {
-            padding: 0 1rem;
-        }
-
-        .availability-section h3,
-        .bases-section h3 {
-            font-family: Arial, sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #f3fffe;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .availability-text,
-        .bases-description,
-        .bases-coverage {
-            font-family: Arial, sans-serif;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: #f3fffe;
-            margin-bottom: 1rem;
-            font-weight: normal;
-        }
-
-        .calendar-container {
-            margin: 1.5rem 0;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .legend {
-            font-size: 0.8rem;
-            color: #f3fffe;
-            text-align: center;
-            margin: 1rem 0;
-            opacity: 0.8;
-        }
-
-        .map-container {
-            margin: 1rem 0;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            height: 280px;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-        }
-
-        .bases-section {
-            margin-top: 2rem;
-        }
-
-        /* Contact Column */
-        .contact-column {
-            background: rgba(69, 214, 157, 0.1);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid rgba(69, 214, 157, 0.3);
-        }
-
-        .contact-form {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(69, 214, 157, 0.9);
-            border: none;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
-            font-size: 0.9rem;
-            color: #123f54;
-            transition: background 0.3s;
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(18, 63, 84, 0.7);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            background: #45d69d;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: #123f54;
-            color: #45d69d;
-            border: 2px solid #45d69d;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: #45d69d;
-            color: #123f54;
-        }
-
-        .vcard-section {
-            text-align: center;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(69, 214, 157, 0.3);
-        }
-
-        .vcard-link {
-            color: #45d69d;
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-
-        .vcard-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .three-column-layout {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .site-title {
-                font-size: 2rem;
-            }
-            
-            .column-header h2 {
-                font-size: 1.8rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            /* Mobile Navigation */
-            .mobile-menu-toggle {
-                display: flex;
-            }
-
-            .main-nav {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(18, 63, 84, 0.98);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-                z-index: 1000;
-                backdrop-filter: blur(10px);
-            }
-
-            .nav-links.mobile-active {
-                display: flex;
-            }
-
-            .nav-links a {
-                font-size: 1.2rem;
-                padding: 1rem;
-            }
-
-            /* Header adjustments for mobile */
-            .site-header {
-                padding: 1rem;
-                position: relative;
-            }
-            
-            .site-title {
-                font-size: 1.5rem;
-            }
-            
-            .contact-header {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .main-content {
-                padding: 1rem;
-            }
-            
-            .column-header h2 {
-                font-size: 1.5rem;
-            }
-            
-            .about-column,
-            .diary-column {
-                padding: 0;
-            }
-            
-            .contact-column {
-                padding: 1rem;
-            }
-
-            .calendar-container iframe {
-                height: 250px;
-            }
-
-            .map-container {
-                height: 220px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .site-title {
-                font-size: 1.2rem;
-            }
-            
-            .column-header h2 {
-                font-size: 1.3rem;
-            }
-            
-            body {
-                font-size: 13px;
-            }
-
-            .social-icons {
-                justify-content: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- FullCalendar (MIT) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <!-- ICAL.js for parsing .ics (MPL 2.0) -->
+    <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+
+    <!-- Leaflet (BSD-2) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
 </head>
 <body>
     <div class="main-container">
         <header class="site-header">
             <div class="header-content">
-                <h1 class="site-title">Richard Gott | Sound recordist | Wales</h1>
+                <h1 class="site-title">Richard Gott | Sound Recordist </h1>
                 <div class="contact-header">
                     <span class="location-phone">Cardiff and West Wales <a href="tel:+447813064680" class="phone-link">+44 7813 064680</a></span>
                     <div class="social-icons">
@@ -632,8 +135,9 @@
                     </div>
 
                     <div class="calendar-container">
-                        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Europe%2FLondon&showTabs=0&showTitle=1&showPrint=0&showCalendars=0&showTz=0&src=M3ZiZHYyM2hsMWIxZXYxNHQ4NTljZ2U5NjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23F4511E" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
-                    </div>
+  <div id="availabilityCalendar" style="background:#ffffff;border-radius:5px;">
+  </div>
+</div>
                     
                     <div class="legend">
                         Busy = Booked. HP = Heavy pencil. LP = Light pencil
@@ -644,8 +148,8 @@
                         <p class="bases-description">Cardiff and Blaencelyn (near Cardigan) are my bases in Wales. If you click on the maximize icon in the header of the map it will open a larger scale map in a new window and give you a more contextual view of where my bases are in relation to the rest of Wales and the UK.</p>
                         
                         <div class="map-container">
-                            <iframe src="https://www.google.com/maps/d/embed?mid=1hneFRJKymMMHaHBPtiA0xD95ihG0U1s&ehbc=2E312F" frameborder="0"></iframe>
-                        </div>
+  <div id="basesMap" style="width:100%;height:100%;"></div>
+</div>
                         
                         <p class="bases-coverage">These two bases offer pretty good coverage of South and West Wales, including Swansea and Pembrokeshire and also for work in Bristol.</p>
                     </div>
@@ -656,8 +160,13 @@
                     <div class="column-header">
                         <h2><span class="green-text">CONTACT</span><br><span class="white-text">ME</span></h2>
                     </div>
+
+                    <div id="formStatus" style="display:none;margin-bottom:1rem;padding:0.75rem;border-radius:6px;background:rgba(255,255,255,0.92);color:#123f54;font-size:0.9rem;"></div>
                     
-                    <form class="contact-form" action="https://formspree.io/f/xpwaevpv" method="POST">
+                    <form class="contact-form" action="send.php" method="POST" novalidate>
+                        <!-- Honeypot anti-spam field (leave blank) -->
+                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Name" required>
                         </div>
@@ -678,7 +187,7 @@
                     </form>
 
                     <div class="vcard-section">
-                        <p><a href="https://drive.google.com/file/d/1e7KBXEWOIriYHeFrWJWGyzVfN43yUw33/view?usp=drive_link" class="vcard-link" target="_blank">Add me to your address book: V-card</a></p>
+                        <p><a href="Soundie Richard Gott.vcf" class="vcard-link" target="_blank">Add me to your address book: V-card</a></p>
                     </div>
                 </section>
             </div>
@@ -744,5 +253,113 @@
             }
         });
     </script>
+
+    <script>
+    // ---------- Availability calendar (Infomaniak .ics feed) ----------
+    (function initAvailabilityCalendar(){
+        const el = document.getElementById('availabilityCalendar');
+        if (!el || !window.FullCalendar || !window.ICAL) return;
+
+        const icsUrl = 'https://sync.infomaniak.com/calendars/RG05866/646fe8d9-18a8-420e-8108-e6243efbebf0?export';
+
+        const calendar = new FullCalendar.Calendar(el, {
+            titleFormat: { year: 'numeric', month: 'short' },
+
+            initialView: 'dayGridMonth',
+            height: 'auto',
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: (window.innerWidth < 768) ? '' : ''
+            },
+            firstDay: 1,
+            timeZone: 'local',
+            events: []
+        });
+
+        calendar.render();
+
+        fetch(icsUrl, { mode: 'cors' })
+            .then(r => {
+                if (!r.ok) throw new Error('ICS fetch failed: ' + r.status);
+                return r.text();
+            })
+            .then(icsText => {
+                const jcalData = ICAL.parse(icsText);
+                const comp = new ICAL.Component(jcalData);
+                const vevents = comp.getAllSubcomponents('vevent') || [];
+
+                const events = vevents.map(v => {
+                    const ev = new ICAL.Event(v);
+                    const start = ev.startDate && ev.startDate.toJSDate ? ev.startDate.toJSDate() : null;
+                    const end = ev.endDate && ev.endDate.toJSDate ? ev.endDate.toJSDate() : null;
+
+                    // If your calendar entries are just "Busy / HP / LP" etc, use that.
+                    // Otherwise you can force a single label:
+                    const title = ev.summary || 'Busy';
+
+                    return (start && end) ? { title, start, end, allDay: ev.startDate.isDate } : null;
+                }).filter(Boolean);
+
+                calendar.removeAllEvents();
+                calendar.addEventSource(events);
+            })
+            .catch(err => {
+                console.warn(err);
+                el.innerHTML = '<div style="padding:1rem;color:#123f54;text-align:center;">' +
+                    'Calendar preview unavailable in this browser (feed may block cross-site access). ' +
+                    '<br><br><a href="' + icsUrl + '" target="_blank" style="color:#123f54;text-decoration:underline;">Open the calendar feed</a>' +
+                    '</div>';
+            });
+    })();
+
+    // ---------- Bases map (OpenStreetMap + Leaflet) ----------
+    (function initBasesMap(){
+        const mapEl = document.getElementById('basesMap');
+        if (!mapEl || !window.L) return;
+
+        // Adjust these coordinates if you want more accuracy:
+        const cardiff = { name: 'Cardiff base', lat: 51.4816, lng: -3.1791 };
+        const blaencelyn = { name: 'Blaencelyn (near Cardigan) base', lat: 52.10, lng: -4.57 };
+
+        const map = L.map('basesMap', { scrollWheelZoom: false });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const markers = [
+            L.marker([cardiff.lat, cardiff.lng]).bindPopup(cardiff.name),
+            L.marker([blaencelyn.lat, blaencelyn.lng]).bindPopup(blaencelyn.name)
+        ];
+        markers.forEach(m => m.addTo(map));
+
+        const group = L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.25));
+
+        // Enable scroll zoom only after click (prevents accidental page scroll hijack)
+        map.on('click', () => map.scrollWheelZoom.enable());
+    })();
+    </script>
+    
+
+    <script>
+      // Contact form status banner (?sent=1 or ?error=1)
+      (function(){
+        const box = document.getElementById('formStatus');
+        if (!box) return;
+        const p = new URLSearchParams(window.location.search);
+        if (p.get('sent') === '1') {
+          box.style.display = 'block';
+          box.style.border = '1px solid rgba(69, 214, 157, 0.6)';
+          box.innerHTML = 'Thanks — your message has been sent. I’ll get back to you as soon as I can.';
+        } else if (p.get('error') === '1') {
+          box.style.display = 'block';
+          box.style.border = '1px solid rgba(255, 105, 0, 0.6)';
+          box.innerHTML = 'Sorry — something went wrong sending that message. Please email me directly at <a href="mailto:richard@richardgott.co.uk" style="color:#123f54;text-decoration:underline;">richard@richardgott.co.uk</a>.';
+        }
+      })();
+    </script>
+
 </body>
 </html>
