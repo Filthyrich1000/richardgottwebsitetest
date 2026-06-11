@@ -491,9 +491,8 @@ body:not(.wp-admin) .search-form .search-submit:hover {
 
 /*
  * Optional Blog tools bar:
- * Add a Kadence Row Layout, Hooked Element, or block group above the post loop
- * with the Additional CSS class "rg-blog-tools", then place a Categories List
- * block and Search block inside it.
+ * Use "WP Blog tools snippet.php" to output this on the generated blog start
+ * page without Kadence Elements/Pro.
  */
 body:not(.wp-admin) .rg-blog-tools {
     display: flex;
@@ -507,11 +506,13 @@ body:not(.wp-admin) .rg-blog-tools {
     border-radius: 8px;
     background: var(--rg-card-bg);
     color: var(--rg-muted-text);
+    grid-column: 1 / -1;
 }
 
 body:not(.wp-admin) .rg-blog-tools .wp-block-categories-list,
 body:not(.wp-admin) .rg-blog-tools .wp-block-page-list,
-body:not(.wp-admin) .rg-blog-tools ul {
+body:not(.wp-admin) .rg-blog-tools ul,
+body:not(.wp-admin) .rg-blog-tools-categories {
     display: flex;
     gap: 2rem;
     flex-wrap: wrap;
@@ -552,11 +553,28 @@ body:not(.wp-admin) .rg-blog-tools .search-form {
     position: relative;
 }
 
+body:not(.wp-admin) .rg-blog-tools-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+body:not(.wp-admin) .rg-blog-tools-search label {
+    flex: 1;
+}
+
 body:not(.wp-admin) .rg-blog-tools .wp-block-search__input,
 body:not(.wp-admin) .rg-blog-tools .search-field {
     width: 100%;
     padding: 0.5rem 1rem;
     border-radius: 20px;
+}
+
+body:not(.wp-admin) .rg-blog-tools .search-submit {
+    padding: 0.5rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    line-height: 1.2;
 }
 
 @media (max-width: 768px) {
