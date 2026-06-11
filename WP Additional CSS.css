@@ -586,7 +586,17 @@ body:not(.wp-admin) .rg-blog-tools .search-submit {
     padding: 0;
     border-radius: 0 20px 20px 0;
     border-left: 0;
+    border-color: var(--rg-green);
+    background: var(--rg-green);
+    color: var(--rg-dark-teal);
     line-height: 1;
+}
+
+body:not(.wp-admin) .rg-blog-tools .search-submit:hover,
+body:not(.wp-admin) .rg-blog-tools .search-submit:focus {
+    border-color: var(--rg-orange);
+    background: var(--rg-orange);
+    color: #ffffff;
 }
 
 body:not(.wp-admin) .rg-blog-tools .search-submit svg {
