@@ -203,6 +203,19 @@ body:not(.wp-admin) .rg-wp-mobile-menu-toggle.rg-wp-is-active span:nth-child(3) 
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
+/*
+ * Hide Kadence's default site header/title strip. The custom rg-wp-site-header
+ * replaces it; this removes the white "Sound Recordist Wales - Sounding Board"
+ * band shown between the intro and post grid.
+ */
+body:not(.wp-admin) #masthead,
+body:not(.wp-admin) .site-header:not(.rg-wp-site-header),
+body:not(.wp-admin) .site-header-wrap,
+body:not(.wp-admin) .kadence-header,
+body:not(.wp-admin) .wp-site-blocks > header:not(.rg-wp-site-header) {
+    display: none !important;
+}
+
 /* Original static-blog intro restored below the custom header */
 body:not(.wp-admin) .rg-wp-blog-intro {
     max-width: 840px;
@@ -254,6 +267,14 @@ body:not(.wp-admin).archive .page-header {
     display: none !important;
 }
 
+body:not(.wp-admin) .rg-wp-blog-intro ~ .entry-hero,
+body:not(.wp-admin) .rg-wp-blog-intro ~ .entry-hero-container,
+body:not(.wp-admin) .rg-wp-blog-intro ~ .post-archive-hero-section,
+body:not(.wp-admin) .rg-wp-blog-intro ~ .page-header,
+body:not(.wp-admin) .rg-wp-blog-intro ~ .site-main-header-wrap {
+    display: none !important;
+}
+
 /* Blog/archive heading treatment */
 body:not(.wp-admin).blog .page-title,
 body:not(.wp-admin).archive .page-title,
@@ -278,23 +299,34 @@ body:not(.wp-admin).home.blog .content-container,
 body:not(.wp-admin).archive .content-container,
 body:not(.wp-admin).blog #primary,
 body:not(.wp-admin).home.blog #primary,
-body:not(.wp-admin).archive #primary {
+body:not(.wp-admin).archive #primary,
+body:not(.wp-admin) #archive-container,
+body:not(.wp-admin) .content-area:has(.loop-entry),
+body:not(.wp-admin) .site-container:has(.post-archive),
+body:not(.wp-admin) .site-container:has(.loop-entry) {
     max-width: var(--rg-compact-blog-width);
+    margin-right: auto !important;
+    margin-left: auto !important;
 }
 
 body:not(.wp-admin).blog .post-archive.grid-cols,
 body:not(.wp-admin).archive .post-archive.grid-cols,
+body:not(.wp-admin) .post-archive,
+body:not(.wp-admin) #archive-container,
 body:not(.wp-admin) .kadence-posts.grid-cols {
     display: grid;
     gap: 1.35rem;
     max-width: var(--rg-compact-blog-width);
-    margin-right: auto;
-    margin-left: auto;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    justify-content: center;
 }
 
 @media (min-width: 1025px) {
     body:not(.wp-admin).blog .post-archive.grid-cols,
     body:not(.wp-admin).archive .post-archive.grid-cols,
+    body:not(.wp-admin) .post-archive,
+    body:not(.wp-admin) #archive-container,
     body:not(.wp-admin) .kadence-posts.grid-cols {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
