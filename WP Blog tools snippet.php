@@ -66,7 +66,11 @@ if (! function_exists('rg_output_blog_tools_toolbar')) {
                         name="s"
                     />
                 </label>
-                <button type="submit" class="search-submit">Search</button>
+                <button type="submit" class="search-submit" aria-label="Search posts">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                        <path d="M9.75 3a6.75 6.75 0 0 1 5.39 10.81l4.02 4.03a.93.93 0 0 1-1.32 1.32l-4.03-4.02A6.75 6.75 0 1 1 9.75 3Zm0 1.86a4.89 4.89 0 1 0 0 9.78 4.89 4.89 0 0 0 0-9.78Z" />
+                    </svg>
+                </button>
             </form>
         </nav>
         <?php

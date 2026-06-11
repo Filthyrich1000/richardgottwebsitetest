@@ -14,7 +14,7 @@ body:not(.wp-admin) {
     --rg-card-text: #333333;
     --rg-muted-text: #666666;
     --rg-card-bg: rgba(255, 255, 255, 0.95);
-    --rg-compact-blog-width: 900px;
+    --rg-compact-blog-width: 1120px;
 }
 
 /* If a snippets plugin accidentally outputs the header in wp-admin, keep it hidden. */
@@ -206,7 +206,7 @@ body:not(.wp-admin) .rg-wp-mobile-menu-toggle.rg-wp-is-active span:nth-child(3) 
 /* Original static-blog intro restored below the custom header */
 body:not(.wp-admin) .rg-wp-blog-intro {
     max-width: 840px;
-    margin: 3rem auto 2.25rem;
+    margin: 3rem auto 0.75rem;
     padding: 0 20px;
     text-align: center;
 }
@@ -498,11 +498,11 @@ body:not(.wp-admin) .rg-blog-tools {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 0.85rem;
     flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 1rem 2rem;
+    max-width: var(--rg-compact-blog-width);
+    margin: 0.85rem auto 1.35rem;
+    padding: 0.55rem 1.25rem;
     border-radius: 8px;
     background: var(--rg-card-bg);
     color: var(--rg-muted-text);
@@ -514,7 +514,7 @@ body:not(.wp-admin) .rg-blog-tools .wp-block-page-list,
 body:not(.wp-admin) .rg-blog-tools ul,
 body:not(.wp-admin) .rg-blog-tools-categories {
     display: flex;
-    gap: 2rem;
+    gap: 1.75rem;
     flex-wrap: wrap;
     list-style: none;
     margin: 0;
@@ -527,7 +527,7 @@ body:not(.wp-admin) .rg-blog-tools a {
     border-radius: 0;
     background: transparent !important;
     color: var(--rg-muted-text) !important;
-    font-size: 0.9rem;
+    font-size: 0.78rem;
     font-weight: 400;
     letter-spacing: normal;
     line-height: 1.5;
@@ -544,7 +544,7 @@ body:not(.wp-admin) .rg-blog-tools .current-menu-item > a {
 
 body:not(.wp-admin) .rg-blog-tools .wp-block-search,
 body:not(.wp-admin) .rg-blog-tools .search-form {
-    width: min(100%, 250px);
+    width: min(100%, 270px);
     margin: 0;
 }
 
@@ -556,7 +556,7 @@ body:not(.wp-admin) .rg-blog-tools .search-form {
 body:not(.wp-admin) .rg-blog-tools-search {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0;
 }
 
 body:not(.wp-admin) .rg-blog-tools-search label {
@@ -566,15 +566,34 @@ body:not(.wp-admin) .rg-blog-tools-search label {
 body:not(.wp-admin) .rg-blog-tools .wp-block-search__input,
 body:not(.wp-admin) .rg-blog-tools .search-field {
     width: 100%;
-    padding: 0.5rem 1rem;
+    min-height: 0;
+    padding: 0.32rem 0.85rem;
     border-radius: 20px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 0.8rem;
+    line-height: 1.2;
 }
 
 body:not(.wp-admin) .rg-blog-tools .search-submit {
-    padding: 0.5rem 0.85rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.85rem;
+    height: 1.85rem;
+    min-width: 1.85rem;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0 20px 20px 0;
+    border-left: 0;
+    line-height: 1;
+}
+
+body:not(.wp-admin) .rg-blog-tools .search-submit svg {
+    display: block;
+    width: 0.85rem;
+    height: 0.85rem;
+    fill: currentColor;
 }
 
 @media (max-width: 768px) {
@@ -624,7 +643,7 @@ body:not(.wp-admin) .rg-blog-tools .search-submit {
     }
 
     body:not(.wp-admin) .rg-wp-blog-intro {
-        margin: 2rem auto 1.5rem;
+        margin: 2rem auto 0.75rem;
     }
 
     body:not(.wp-admin) .rg-wp-blog-intro-title {
