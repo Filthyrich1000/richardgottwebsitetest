@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="application/ld+json">
+<link rel="canonical" href="https://www.richardgott.co.uk/" />
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Richard Gott Sound Recordist",
+  "image": "https://richardgott.co.uk/assets/images/profile-photo.png",
+  "description": "Freelance location sound recordist serving Cardiff, West Wales, Swansea, and Pembrokeshire.",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Cardiff"
+    },
+    {
+      "@type": "City",
+      "name": "Swansea"
+    },
+    {
+      "@type": "Region",
+      "name": "Pembrokeshire"
+    },
+    {
+      "@type": "Region",
+      "name": "West Wales"
+    }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "Wales",
+    "addressCountry": "UK"
+  },
+  "url": "https://richardgott.co.uk"
+}
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richard Gott | Sound Recordist Cardiff & West Wales | Location Audio</title>
+    <meta name="description" content="Freelance location sound recordist in Cardiff and West Wales with 20+ years experience. TV, documentary, corporate productions across South and West Wales.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- FullCalendar (MIT) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <!-- ICAL.js for parsing .ics (MPL 2.0) -->
+    <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+
+    <!-- Leaflet (BSD-2) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+</head>
+<body>
+    <div class="main-container">
+        <header class="site-header">
+            <div class="header-content">
+                <h1 class="site-title">Richard Gott | Sound Recordist </h1>
+                <div class="contact-header">
+                    <span class="location-phone">Cardiff and West Wales <a href="tel:+447813064680" class="phone-link">+44 7813 064680</a></span>
+                    <div class="social-icons">
+                        <a href="https://wa.me/447813064680" target="_blank" class="social-icon whatsapp">
+                            <img src="assets/images/whatsapp.svg" alt="WhatsApp" />
+                        </a>
+                        <a href="https://www.instagram.com/richardgott/" target="_blank" class="social-icon instagram">
+                            <img src="assets/images/instagram.svg" alt="Instagram" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/soundrecordistuk/" target="_blank" class="social-icon linkedin">
+                            <img src="assets/images/linkedin.svg" alt="LinkedIn" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="active">HOME</a></li>
+                    <li><a href="work-history.html">PAST WORK</a></li>
+                    <li><a href="testimonials.html">TESTIMONIALS</a></li>
+                    <li><a href="kit.html">KIT</a></li>
+                    <li><a href="blog.html">BLOG</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="three-column-layout">
+                <!-- Left Column - About Me -->
+                <section class="about-column">
+                    <div class="column-header">
+                        <h2><span class="green-text">ABOUT</span><br><span class="white-text">ME</span></h2>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <div class="profile-image">
+                            <img src="assets/images/profile-photo.png" alt="Richard Gott" />
+                        </div>
+                        
+                        <a href="https://www.thetalentmanager.com/talent/65586" class="talent-manager-link" target="_blank">
+                            Connect with me on Talentmanager
+                        </a>
+                        
+                        <div class="mobile-note">
+                            On a phone? Scroll for my Diary and Bases
+                        </div>
+                    </div>
+
+                    <div class="about-text">
+                        <p>I'm a freelance location sound recordist in Cardiff and West Wales with over 20 years' experience working across television, documentary, and corporate productions. I regularly cover shoots throughout South and West Wales — including Swansea, Newport, Pembrokeshire and Aberystwyth. My Cardiff base is often appealing to clients filming in nearby Bristol. I'm always open to travelling further afield (and often do)!</p>
+
+                        <p>I work across genres including observational documentary, factual entertainment, current affairs, branded content, and commercials. Recent credits include 'Billy Monger: The Race is On' (SBX Studios / BBC One Comic Relief), 'Charlotte Church's Dream Build' (Koska / Discovery+), 'Welcome to Wrexham' (NEO Studios/ Disney+ (UK)/FX Network(USA)), 'Grand Designs' (Boundless / Channel 4), 'Blue Peter' (CBBC) and 'Gardeners' World' (BBC Bristol / BBC Two), among many others (which are listed on the <a href="work-history.html">Work History</a> page).</p>
+
+                        <p>My documentary sound kit includes a Sound Devices 833 mixer-recorder, multiple Wisycom radio mic kits, shotgun (boom) mics, timecode sync, IEMs, wireless hop and robust backup systems to keep everything running smoothly in the field (<a href="kit.html">more kit details here</a>). I also carry a backup recorder and offer dual-media recording as standard for secure back ups. I'm a member of the Institute of Professional Sound, BECTU, I'm fully insured, hold a valid Ch38 PMSE license, full UK driving license and passport, and a journalist I-Visa for filming in the US. I have a basic level of conversational Welsh.</p>
+                    </div>
+                </section>
+
+                <!-- Center Column - Diary & Bases -->
+                <section class="diary-column">
+                    <div class="column-header">
+                        <h2><span class="green-text">DIARY</span><br><span class="white-text">& BASES</span></h2>
+                    </div>
+                    
+                    <div class="availability-section">
+                        <h3>MY AVAILABILITY</h3>
+                    </div>
+
+                    <div class="calendar-container">
+                        <!-- Added style to ensure full width -->
+                        <div id="availabilityCalendar" style="background:#ffffff;border-radius:5px; width: 100%;"></div>
+                    </div>
+                    
+                    <div class="legend">
+                        Busy = Booked. HP = Heavy pencil. LP = Light pencil
+                    </div>
+
+                    <div class="bases-section">
+                        <h3>MY BASES</h3>
+                        <p class="bases-description">Cardiff and Blaencelyn (near Cardigan) are my bases in Wales. If you click on the maximize icon in the header of the map it will open a larger scale map in a new window and give you a more contextual view of where my bases are in relation to the rest of Wales and the UK.</p>
+                        
+                        <div class="map-container">
+                            <div id="basesMap" style="width:100%;height:100%;"></div>
+                        </div>
+                        
+                        <p class="bases-coverage">These two bases offer pretty good coverage of South and West Wales, including Swansea and Pembrokeshire and also for work in Bristol.</p>
+                    </div>
+                </section>
+
+                <!-- Right Column - Contact Me -->
+                <section class="contact-column">
+                    <div class="column-header">
+                        <h2><span class="green-text">CONTACT</span><br><span class="white-text">ME</span></h2>
+                    </div>
+
+                    <div id="formStatus" style="display:none;margin-bottom:1rem;padding:0.75rem;border-radius:6px;background:rgba(255,255,255,0.92);color:#123f54;font-size:0.9rem;"></div>
+                    
+                    <form class="contact-form" action="send.php" method="POST" novalidate>
+                        <!-- Honeypot anti-spam field (leave blank) -->
+                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject">
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="8" placeholder="Type your message here..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+
+                    <div class="vcard-section">
+                        <p><a href="Soundie Richard Gott.vcf" class="vcard-link" target="_blank">Add me to your address book: V-card</a></p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            navLinks.classList.toggle('mobile-active');
+            menuToggle.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navLinks.classList.contains('mobile-active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close mobile menu when clicking on a link
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const navLinksContainer = document.getElementById('navLinks');
+                    const menuToggle = document.querySelector('.mobile-menu-toggle');
+                    
+                    if (navLinksContainer.classList.contains('mobile-active')) {
+                        navLinksContainer.classList.remove('mobile-active');
+                        menuToggle.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.main-nav');
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('mobile-active')) {
+                navLinks.classList.remove('mobile-active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const navLinks = document.getElementById('navLinks');
+                const menuToggle = document.querySelector('.mobile-menu-toggle');
+                
+                navLinks.classList.remove('mobile-active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+
+    <script>
+    // ---------- Availability calendar (Infomaniak .ics feed) ----------
+    (function initAvailabilityCalendar(){
+        const el = document.getElementById('availabilityCalendar');
+        if (!el || !window.FullCalendar || !window.ICAL) return;
+
+     const baseUrl = 'https://sync.infomaniak.com/calendars/RG05866/646fe8d9-18a8-420e-8108-e6243efbebf0?export';
+        // Double cache buster: Time + Random Number
+const icsUrl = baseUrl + '&t=' + new Date().getTime() + '&r=' + Math.random();
+
+        const calendar = new FullCalendar.Calendar(el, {
+            titleFormat: { year: 'numeric', month: 'short' },
+            initialView: 'dayGridMonth',
+            height: 'auto',
+            width: '100%', // Force full width
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: (window.innerWidth < 768) ? '' : ''
+            },
+            firstDay: 1,
+            timeZone: 'local',
+            events: []
+        });
+
+        calendar.render();
+
+        fetch(icsUrl, { mode: 'cors' })
+            .then(r => {
+                if (!r.ok) throw new Error('ICS fetch failed: ' + r.status);
+                return r.text();
+            })
+            .then(icsText => {
+                const jcalData = ICAL.parse(icsText);
+                const comp = new ICAL.Component(jcalData);
+                const vevents = comp.getAllSubcomponents('vevent') || [];
+
+                // Define range for expansion (Today to 1 year from now)
+                const startRange = ICAL.Time.now();
+                const endRange = ICAL.Time.fromJSDate(new Date(new Date().getFullYear() + 1, 0, 1));
+
+                const events = vevents.map(v => {
+                    const ev = new ICAL.Event(v);
+                    
+                    // FIX: Skip cancelled events (ghost events)
+                    if (ev.status === 'CANCELLED') {
+                        return null;
+                    }
+
+                    const title = ev.summary || 'Busy';
+
+                    // CHECK: Is this a recurring event?
+                    if (ev.isRecurring()) {
+                        const iterator = ev.iterator(startRange);
+                        const expandedEvents = [];
+                        let next;
+                        
+                        // Generate occurrences within the range
+                        while ((next = iterator.next())) {
+                            if (next.compare(endRange) > 0) break; // Stop if past range
+                            
+                            const occStart = next.toJSDate();
+                            // Calculate duration from original event to apply to occurrences
+                            const duration = ev.endDate.toJSDate().getTime() - ev.startDate.toJSDate().getTime();
+                            const occEnd = new Date(occStart.getTime() + duration);
+
+                            expandedEvents.push({
+                                title: title,
+                                start: occStart,
+                                end: occEnd,
+                                allDay: ev.startDate.isDate
+                            });
+                        }
+                        return expandedEvents; // Return array of expanded events
+                    } else {
+                        // Standard single event
+                        const start = ev.startDate && ev.startDate.toJSDate ? ev.startDate.toJSDate() : null;
+                        const end = ev.endDate && ev.endDate.toJSDate ? ev.endDate.toJSDate() : null;
+                        return (start && end) ? { title, start, end, allDay: ev.startDate.isDate } : null;
+                    }
+                }).flat(); // Flatten the array
+
+                // Filter out any nulls left behind by cancelled events
+                const cleanEvents = events.filter(e => e !== null);
+
+                calendar.removeAllEvents();
+                calendar.addEventSource(cleanEvents);
+            })
+            .catch(err => {
+                console.warn(err);
+                el.innerHTML = '<div style="padding:1rem;color:#123f54;text-align:center;">' +
+                    'Calendar preview unavailable in this browser (feed may block cross-site access). ' +
+                    '<br><br><a href="' + baseUrl + '" target="_blank" style="color:#123f54;text-decoration:underline;">Open the calendar feed</a>' +
+                    '</div>';
+            });
+    })();
+
+    // ---------- Bases map (OpenStreetMap + Leaflet) ----------
+    (function initBasesMap(){
+        const mapEl = document.getElementById('basesMap');
+        if (!mapEl || !window.L) return;
+
+        // Adjust these coordinates if you want more accuracy:
+        const cardiff = { name: 'Cardiff base', lat: 51.4816, lng: -3.1791 };
+        const blaencelyn = { name: 'Blaencelyn (near Cardigan) base', lat: 52.10, lng: -4.57 };
+
+        const map = L.map('basesMap', { scrollWheelZoom: false });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const markers = [
+            L.marker([cardiff.lat, cardiff.lng]).bindPopup(cardiff.name),
+            L.marker([blaencelyn.lat, blaencelyn.lng]).bindPopup(blaencelyn.name)
+        ];
+        markers.forEach(m => m.addTo(map));
+
+        const group = L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.25));
+
+        // Enable scroll zoom only after click (prevents accidental page scroll hijack)
+        map.on('click', () => map.scrollWheelZoom.enable());
+    })();
+    </script>
+    
+
+    <script>
+      // Contact form status banner (?sent=1 or ?error=1)
+      (function(){
+        const box = document.getElementById('formStatus');
+        if (!box) return;
+        const p = new URLSearchParams(window.location.search);
+        if (p.get('sent') === '1') {
+          box.style.display = 'block';
+          box.style.border = '1px solid rgba(69, 214, 157, 0.6)';
+          box.innerHTML = 'Thanks — your message has been sent. I'll get back to you as soon as I can.';
+        } else if (p.get('error') === '1') {
+          box.style.display = 'block';
+          box.style.border = '1px solid rgba(255, 105, 0, 0.6)';
+          box.innerHTML = 'Sorry — something went wrong sending that message. Please email me directly at <a href="mailto:richard@richardgott.co.uk" style="color:#123f54;text-decoration:underline;">richard@richardgott.co.uk</a>.';
+        }
+      })();
+    </script>
+
+</body>
+</html>
