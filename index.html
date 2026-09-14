@@ -260,9 +260,8 @@
         const el = document.getElementById('availabilityCalendar');
         if (!el || !window.FullCalendar || !window.ICAL) return;
 
-     const baseUrl = 'https://sync.infomaniak.com/calendars/RG05866/646fe8d9-18a8-420e-8108-e6243efbebf0?export';
-        // Double cache buster: Time + Random Number
-const icsUrl = baseUrl + '&t=' + new Date().getTime() + '&r=' + Math.random();
+        const baseUrl = 'https://sync.infomaniak.com/calendars/RG05866/646fe8d9-18a8-420e-8108-e6243efbebf0?export';
+        const icsUrl = baseUrl + '&t=' + Date.now() + '&r=' + Math.random();
 
         const calendar = new FullCalendar.Calendar(el, {
             titleFormat: { year: 'numeric', month: 'short' },
@@ -281,7 +280,37 @@ const icsUrl = baseUrl + '&t=' + new Date().getTime() + '&r=' + Math.random();
 
         calendar.render();
 
-        fetch(icsUrl, { mode: 'cors' })
+        function firstPropertyValue(event, name) {
+            const value = event.component && event.component.getFirstPropertyValue(name);
+            return value ? String(value).toUpperCase() : '';
+        }
+
+        function isBlockingEvent(event) {
+            const status = event.status ? String(event.status).toUpperCase() : '';
+            const transparency = firstPropertyValue(event, 'transp');
+            const microsoftBusyStatus = firstPropertyValue(event, 'x-microsoft-cdo-busystatus');
+
+            return status !== 'CANCELLED' &&
+                transparency !== 'TRANSPARENT' &&
+                microsoftBusyStatus !== 'FREE';
+        }
+
+        function recurrenceKey(time) {
+            return time && time.toString ? time.toString() : '';
+        }
+
+        function toFullCalendarEvent(event, start, end) {
+            if (!start || !end) return null;
+
+            return {
+                title: event.summary || 'Busy',
+                start: start,
+                end: end,
+                allDay: event.startDate && event.startDate.isDate
+            };
+        }
+
+        fetch(icsUrl, { mode: 'cors', cache: 'no-store' })
             .then(r => {
                 if (!r.ok) throw new Error('ICS fetch failed: ' + r.status);
                 return r.text();
@@ -291,56 +320,71 @@ const icsUrl = baseUrl + '&t=' + new Date().getTime() + '&r=' + Math.random();
                 const comp = new ICAL.Component(jcalData);
                 const vevents = comp.getAllSubcomponents('vevent') || [];
 
-                // Define range for expansion (Today to 1 year from now)
-                const startRange = ICAL.Time.now();
-                const endRange = ICAL.Time.fromJSDate(new Date(new Date().getFullYear() + 1, 0, 1));
+                // Load recurring availability from the current month through the next year.
+                const rangeStartDate = new Date();
+                rangeStartDate.setDate(1);
+                rangeStartDate.setHours(0, 0, 0, 0);
 
-                const events = vevents.map(v => {
+                const rangeEndDate = new Date(rangeStartDate);
+                rangeEndDate.setFullYear(rangeEndDate.getFullYear() + 1);
+
+                const startRange = ICAL.Time.fromJSDate(rangeStartDate);
+                const endRange = ICAL.Time.fromJSDate(rangeEndDate);
+                const recurrenceOverrides = new Map();
+                const events = [];
+
+                vevents.forEach(v => {
                     const ev = new ICAL.Event(v);
-                    
-                    // FIX: Skip cancelled events (ghost events)
-                    if (ev.status === 'CANCELLED') {
-                        return null;
+
+                    if (ev.uid && ev.recurrenceId) {
+                        if (!recurrenceOverrides.has(ev.uid)) {
+                            recurrenceOverrides.set(ev.uid, new Set());
+                        }
+
+                        recurrenceOverrides.get(ev.uid).add(recurrenceKey(ev.recurrenceId));
+                    }
+                });
+
+                vevents.forEach(v => {
+                    const ev = new ICAL.Event(v);
+                    if (!isBlockingEvent(ev)) return;
+
+                    if (ev.recurrenceId) {
+                        const singleEvent = toFullCalendarEvent(
+                            ev,
+                            ev.startDate && ev.startDate.toJSDate ? ev.startDate.toJSDate() : null,
+                            ev.endDate && ev.endDate.toJSDate ? ev.endDate.toJSDate() : null
+                        );
+                        if (singleEvent) events.push(singleEvent);
+                        return;
                     }
 
-                    const title = ev.summary || 'Busy';
-
-                    // CHECK: Is this a recurring event?
                     if (ev.isRecurring()) {
                         const iterator = ev.iterator(startRange);
-                        const expandedEvents = [];
+                        const overriddenDates = recurrenceOverrides.get(ev.uid) || new Set();
                         let next;
-                        
-                        // Generate occurrences within the range
+
                         while ((next = iterator.next())) {
-                            if (next.compare(endRange) > 0) break; // Stop if past range
-                            
+                            if (next.compare(endRange) > 0) break;
+                            if (overriddenDates.has(recurrenceKey(next))) continue;
+
                             const occStart = next.toJSDate();
-                            // Calculate duration from original event to apply to occurrences
                             const duration = ev.endDate.toJSDate().getTime() - ev.startDate.toJSDate().getTime();
                             const occEnd = new Date(occStart.getTime() + duration);
 
-                            expandedEvents.push({
-                                title: title,
-                                start: occStart,
-                                end: occEnd,
-                                allDay: ev.startDate.isDate
-                            });
+                            const calendarEvent = toFullCalendarEvent(ev, occStart, occEnd);
+                            if (calendarEvent) events.push(calendarEvent);
                         }
-                        return expandedEvents; // Return array of expanded events
                     } else {
-                        // Standard single event
                         const start = ev.startDate && ev.startDate.toJSDate ? ev.startDate.toJSDate() : null;
                         const end = ev.endDate && ev.endDate.toJSDate ? ev.endDate.toJSDate() : null;
-                        return (start && end) ? { title, start, end, allDay: ev.startDate.isDate } : null;
+                        const calendarEvent = toFullCalendarEvent(ev, start, end);
+                        if (calendarEvent) events.push(calendarEvent);
                     }
-                }).flat(); // Flatten the array
-
-                // Filter out any nulls left behind by cancelled events
-                const cleanEvents = events.filter(e => e !== null);
+                });
 
                 calendar.removeAllEvents();
-                calendar.addEventSource(cleanEvents);
+                calendar.addEventSource(events);
             })
             .catch(err => {
                 console.warn(err);
