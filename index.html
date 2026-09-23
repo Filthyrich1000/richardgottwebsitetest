@@ -360,11 +360,12 @@
                     }
 
                     if (ev.isRecurring()) {
-                        const iterator = ev.iterator(startRange);
+                        const iterator = ev.iterator();
                         const overriddenDates = recurrenceOverrides.get(ev.uid) || new Set();
                         let next;
 
                         while ((next = iterator.next())) {
+                            if (next.compare(startRange) < 0) continue;
                             if (next.compare(endRange) > 0) break;
                             if (overriddenDates.has(recurrenceKey(next))) continue;
 
